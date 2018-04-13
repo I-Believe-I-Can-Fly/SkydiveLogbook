@@ -3,6 +3,9 @@
 ## Project participants
 | Name                | Study | Studentnr. |
 | --------------------|:------:|-----------:|
-| [Brede Fritjof Klausen](https://github.com/BredeFK) | BPROG  | 473211 |
-| [Johan Aanesen](https://github.com/johanAanesen/)        | BPROG | 473182 |
+| [Brede Fritjof Klausen](https://github.com/BredeFK) | BPROG  | xxxxxx |
+| [Johan Aanesen](https://github.com/johanAanesen/)        | BPROG | xxxxxx |
 | [Jørgen Jærnes](https://github.com/jorgenjj)      | BPROG | xxxxxx |
+
+## Sources
+- 
