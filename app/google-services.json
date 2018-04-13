@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "365993170325",
+    "firebase_url": "https://believe-i-can-fly-11.firebaseio.com",
+    "project_id": "believe-i-can-fly-11",
+    "storage_bucket": "believe-i-can-fly-11.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:365993170325:android:8420b93f406fa1c1",
+        "android_client_info": {
+          "package_name": "ibelieveicanfly.skydivelogbook"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "365993170325-q59uo98gib2bnerkq4ed450qob8ufl48.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "ibelieveicanfly.skydivelogbook",
+            "certificate_hash": "ab623b3a8d21751f391ba3a234097573caa32a8c"
+          }
+        },
+        {
+          "client_id": "365993170325-mfgq413k1hu6km5p5cnlm9tut98qrcvu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBLR3sGHmwT9eMSXvoJOYNeP_s3TcqE_Jk"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "365993170325-mfgq413k1hu6km5p5cnlm9tut98qrcvu.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
