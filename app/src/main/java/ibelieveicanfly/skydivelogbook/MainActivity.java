@@ -1,8 +1,8 @@
 package ibelieveicanfly.skydivelogbook;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -15,9 +15,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        TextView txtHello = findViewById(R.id.hello_ID);
-        String helloText = this.getResources().getString(R.string.hello);
-        txtHello.setText(helloText);
+        //    String helloText = this.getResources().getString(R.string.hello);
 
         auth = FirebaseAuth.getInstance();
         userStatus(auth.getCurrentUser());
@@ -34,7 +32,8 @@ public class MainActivity extends AppCompatActivity {
         } else {
             // User is not signed in
 
-            // Code here ...
+            Intent intent = new Intent(MainActivity.this, SignInActivity.class);
+            startActivity(intent);
         }
     }
 }

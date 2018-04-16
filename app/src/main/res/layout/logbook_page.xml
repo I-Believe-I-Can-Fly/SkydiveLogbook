@@ -7,44 +7,13 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/textView13"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:text="Equipment"
-        app:layout_constraintBottom_toTopOf="@+id/page_equipment"
-        app:layout_constraintEnd_toStartOf="@+id/textView14"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/page_DZ" />
-
-    <TextView
-        android:id="@+id/textView14"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:text="Exit Altitude"
-        app:layout_constraintBottom_toTopOf="@+id/page_exitAlt"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/textView13"
-        app:layout_constraintTop_toBottomOf="@+id/page_plane" />
-
-    <TextView
-        android:id="@+id/textView11"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:text="Dropzone"
-        app:layout_constraintEnd_toStartOf="@+id/textView10"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="80dp" />
-
-    <TextView
         android:id="@+id/textView12"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:text="Jump Number"
+        android:text="@string/jumpNr"
+        android:textColor="@android:color/black"
         app:layout_constraintBottom_toTopOf="@+id/page_jumpNr"
         app:layout_constraintEnd_toStartOf="@+id/textView9"
         app:layout_constraintStart_toStartOf="parent"
@@ -56,7 +25,8 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
         android:layout_marginTop="16dp"
-        android:text="Date"
+        android:text="@string/date"
+        android:textColor="@android:color/black"
         app:layout_constraintBottom_toTopOf="@+id/page_date"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/textView12"
@@ -64,14 +34,74 @@
         app:layout_constraintVertical_bias="0.0" />
 
     <TextView
+        android:id="@+id/textView11"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:text="@string/dropzone"
+        android:textColor="@android:color/black"
+        app:layout_constraintEnd_toStartOf="@+id/textView10"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="80dp" />
+
+    <TextView
         android:id="@+id/textView10"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
-        android:text="Plane"
+        android:text="@string/plane"
+        android:textColor="@android:color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/textView11"
         tools:layout_editor_absoluteY="80dp" />
+
+    <TextView
+        android:id="@+id/textView13"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:text="@string/equipment"
+        android:textColor="@android:color/black"
+        app:layout_constraintBottom_toTopOf="@+id/page_equipment"
+        app:layout_constraintEnd_toStartOf="@+id/textView14"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/page_DZ" />
+
+    <TextView
+        android:id="@+id/textView14"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:text="@string/exitAlt"
+        android:textColor="@android:color/black"
+        app:layout_constraintBottom_toTopOf="@+id/page_exitAlt"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textView13"
+        app:layout_constraintTop_toBottomOf="@+id/page_plane" />
+
+    <TextView
+        android:id="@+id/textView22"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:text="@string/fallTime"
+        android:textColor="@android:color/black"
+        app:layout_constraintBottom_toTopOf="@+id/page_freefallTime"
+        app:layout_constraintEnd_toStartOf="@+id/textView21"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/page_equipment" />
+
+    <TextView
+        android:id="@+id/textView21"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:text="@string/canopyAlltitude"
+        android:textColor="@android:color/black"
+        app:layout_constraintBottom_toTopOf="@+id/page_canopyAlt"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textView22"
+        app:layout_constraintTop_toBottomOf="@+id/page_exitAlt" />
 
     <TextView
         android:id="@+id/textView15"
@@ -79,7 +109,8 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
         android:layout_marginStart="16dp"
-        android:text="Comments"
+        android:text="@string/comments"
+        android:textColor="@android:color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -91,8 +122,8 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
         android:ems="10"
+        android:hint="@string/dateHint"
         android:inputType="date"
-        android:text="16/4-18"
         app:layout_constraintBottom_toTopOf="@+id/textView10"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/page_jumpNr"
@@ -104,8 +135,8 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:ems="10"
+        android:hint="@string/dropzoneHint"
         android:inputType="textPersonName"
-        android:text="OFSK"
         app:layout_constraintBottom_toTopOf="@+id/textView13"
         app:layout_constraintEnd_toStartOf="@+id/page_plane"
         app:layout_constraintStart_toStartOf="parent"
@@ -117,8 +148,8 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:ems="10"
+        android:hint="@string/jumpNumberHint"
         android:inputType="textPersonName"
-        android:text="34"
         app:layout_constraintBottom_toTopOf="@+id/textView11"
         app:layout_constraintEnd_toStartOf="@+id/page_date"
         app:layout_constraintStart_toStartOf="parent"
@@ -130,8 +161,8 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
         android:ems="10"
+        android:hint="@string/planeHint"
         android:inputType="textPersonName"
-        android:text="Caravan"
         app:layout_constraintBottom_toTopOf="@+id/textView14"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/page_DZ"
@@ -143,8 +174,8 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:ems="10"
+        android:hint="@string/equipmentHint"
         android:inputType="textPersonName"
-        android:text="Pulse 170"
         app:layout_constraintEnd_toStartOf="@+id/page_exitAlt"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView13" />
@@ -155,8 +186,8 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
         android:ems="10"
+        android:hint="@string/exitAltitudeHint"
         android:inputType="textPersonName"
-        android:text="12500ft"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/page_equipment"
@@ -170,34 +201,12 @@
         android:layout_marginEnd="16dp"
         android:layout_marginStart="16dp"
         android:ems="10"
+        android:hint="@string/CommentsHint"
         android:inputType="textMultiLine"
-        android:text="#Skygod"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView15" />
-
-    <TextView
-        android:id="@+id/textView21"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:text="Canopy altitude"
-        app:layout_constraintBottom_toTopOf="@+id/page_canopyAlt"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/textView22"
-        app:layout_constraintTop_toBottomOf="@+id/page_exitAlt" />
-
-    <TextView
-        android:id="@+id/textView22"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:text="Freefall time"
-        app:layout_constraintBottom_toTopOf="@+id/page_freefallTime"
-        app:layout_constraintEnd_toStartOf="@+id/textView21"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/page_equipment" />
 
     <EditText
         android:id="@+id/page_canopyAlt"
@@ -205,8 +214,8 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
         android:ems="10"
+        android:hint="@string/CanopyAltHint"
         android:inputType="textPersonName"
-        android:text="3500ft"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/page_freefallTime"
         app:layout_constraintTop_toBottomOf="@+id/textView21" />
@@ -217,8 +226,8 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:ems="10"
+        android:hint="@string/freefallTimeHint"
         android:inputType="textPersonName"
-        android:text="61s"
         app:layout_constraintEnd_toStartOf="@+id/textView21"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView22" />

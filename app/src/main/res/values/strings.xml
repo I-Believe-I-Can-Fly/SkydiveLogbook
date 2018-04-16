@@ -1,4 +1,26 @@
 <resources>
     <string name="app_name">Skydive Logbook</string>
     <string name="hello">Hello World!</string>
+    <string name="jumpNr">Jump Number</string>
+    <string name="date">Date</string>
+    <string name="dropzone">Dropzone</string>
+    <string name="plane">Plane</string>
+    <string name="equipment">Equipment</string>
+    <string name="exitAlt">Exit Altitude</string>
+    <string name="fallTime">Freefall Time</string>
+    <string name="canopyAlltitude">Canopy Altitude</string>
+    <string name="comments">Comments</string>
+    <string name="jumpNumberHint">34</string>
+    <string name="dateHint">16/04/2018</string>
+    <string name="dropzoneHint">OFSK</string>
+    <string name="planeHint">Caravan</string>
+    <string name="equipmentHint">Pulse 170</string>
+    <string name="exitAltitudeHint">12500ft</string>
+    <string name="freefallTimeHint">61s</string>
+    <string name="CanopyAltHint">3500ft</string>
+    <string name="CommentsHint">#Skygod #WheresTheBreakes?</string>
+    <string name="email">E-mail</string>
+    <string name="password">Password</string>
+    <string name="register">Register</string>
+    <string name="signIn">Sign in</string>
 </resources>
