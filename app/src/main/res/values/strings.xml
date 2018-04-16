@@ -23,4 +23,7 @@
     <string name="password">Password</string>
     <string name="register">Register</string>
     <string name="signIn">Sign in</string>
+    <string name="emailEmpty">Error: E-mail can not be empty!</string>
+    <string name="passwordEmpty">Error: Password can not be empty!</string>
+    <string name="authError">Error: Authentication failed!</string>
 </resources>
