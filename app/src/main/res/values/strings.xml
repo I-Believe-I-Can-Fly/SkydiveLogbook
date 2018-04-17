@@ -22,8 +22,19 @@
     <string name="email">E-mail</string>
     <string name="password">Password</string>
     <string name="register">Register</string>
-    <string name="signIn">Sign in</string>
     <string name="emailEmpty">Error: E-mail can not be empty!</string>
     <string name="passwordEmpty">Error: Password can not be empty!</string>
     <string name="authError">Error: Authentication failed!</string>
+    <string name="logIn">Log in</string>
+    <string name="newUser">Don\'t have an account?</string>
+    <string name="existingUser">Already have an account?</string>
+    <string name="firstName">First Name</string>
+    <string name="lastName">Last Name</string>
+    <string name="confirmPassword">Confirm Password</string>
+    <string name="firstNameEmpty">Error: First name can not be empty!</string>
+    <string name="lastNameEmpty">Error: Last name can not be empty!</string>
+    <string name="confirmPassEpty">Error: Confirm password can not be empty!</string>
+    <string name="passDontMatch">Error: Passwords don\'t match!</string>
+    <string name="boldRegister">Register.</string>
+    <string name="boldLogin">Log in.</string>
 </resources>
