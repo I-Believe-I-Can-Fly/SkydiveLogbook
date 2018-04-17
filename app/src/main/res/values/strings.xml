@@ -39,4 +39,9 @@
     <string name="boldLogin">Log in.</string>
     <string name="imageDescription">Image of app logo</string>
     <string name="forgotPassword">Forgot Password?</string>
+
+
+    <!-- sup -->
+    <string name="approved">Approved</string>
+    <string name="notApproved">Waiting</string>
 </resources>
