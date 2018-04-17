@@ -37,4 +37,6 @@
     <string name="passDontMatch">Error: Passwords don\'t match!</string>
     <string name="boldRegister">Register.</string>
     <string name="boldLogin">Log in.</string>
+    <string name="imageDescription">Image of app logo</string>
+    <string name="forgotPassword">Forgot Password?</string>
 </resources>

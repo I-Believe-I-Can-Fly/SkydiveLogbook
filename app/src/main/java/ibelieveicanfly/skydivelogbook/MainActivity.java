@@ -28,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
         if (currentUser != null) {
             // User is signed in
 
+            // auth.signOut();
             // Code here ...
         } else {
             // User is not signed in
