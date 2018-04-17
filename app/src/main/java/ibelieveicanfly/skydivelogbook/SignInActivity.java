@@ -155,6 +155,7 @@ public class SignInActivity extends AppCompatActivity {
             edit_confirmPass.setText("");
 
         } else {
+
             auth.createUserWithEmailAndPassword(email, password)
                     .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                         @Override
@@ -188,6 +189,7 @@ public class SignInActivity extends AppCompatActivity {
             Toast.makeText(SignInActivity.this, passwordEmpty, Toast.LENGTH_SHORT).show();
 
         } else {
+
             auth.signInWithEmailAndPassword(email, password)
                     .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                         @Override
