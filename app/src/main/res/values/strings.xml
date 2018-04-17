@@ -48,4 +48,8 @@
     <string name="sendEmail">Send Email</string>
     <string name="resetPassword">Reset Password</string>
     <string name="emailSent">An email has been sent to your email address</string>
+
+    <!-- sup -->
+    <string name="approved">Approved</string>
+    <string name="notApproved">Waiting</string>
 </resources>
