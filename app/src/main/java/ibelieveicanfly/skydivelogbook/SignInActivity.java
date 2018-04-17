@@ -14,8 +14,14 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.FirebaseTooManyRequestsException;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
+import com.google.firebase.auth.FirebaseAuthInvalidUserException;
+import com.google.firebase.auth.FirebaseAuthUserCollisionException;
+import com.google.firebase.auth.FirebaseAuthWeakPasswordException;
+import com.google.firebase.auth.UserProfileChangeRequest;
 
 public class SignInActivity extends AppCompatActivity {
 
@@ -27,6 +33,7 @@ public class SignInActivity extends AppCompatActivity {
     private EditText edit_confirmPass;
     private EditText edit_emailLogIn;
     private EditText edit_passwordLogIn;
+    private EditText edit_emailReset;
     private TextView txt_register;
     private TextView txt_forgotten;
     private FirebaseAuth auth;
@@ -43,9 +50,10 @@ public class SignInActivity extends AppCompatActivity {
     private String boldRegister;
     private String boldLogin;
     private String forgottenPass;
+    private String userNotExists;
     private RelativeLayout layout_signIn;
     private RelativeLayout layout_register;
-    private String authError;
+    private RelativeLayout layout_resetPass;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +61,7 @@ public class SignInActivity extends AppCompatActivity {
         setContentView(R.layout.activity_sign_in);
 
         getValues();
+        // TODO : Add license number
 
         txt_register.setText(Html.fromHtml(newUser + boldRegister));
         txt_forgotten.setText(forgottenPass);
@@ -75,22 +84,24 @@ public class SignInActivity extends AppCompatActivity {
         edit_email = findViewById(R.id.edit_email);
         edit_password = findViewById(R.id.edit_password);
         edit_confirmPass = findViewById(R.id.edit_confirmPass);
+        edit_emailReset = findViewById(R.id.edit_emailReset);
         txt_register = findViewById(R.id.txt_register);
         txt_forgotten = findViewById(R.id.txt_forgotten);
         layout_signIn = findViewById(R.id.layout_LogIn);
         layout_register = findViewById(R.id.layout_register);
+        layout_resetPass = findViewById(R.id.layout_resetPassword);
 
         // Get instance from Firebase
         auth = FirebaseAuth.getInstance();
 
         // Get string resources
+        userNotExists = this.getResources().getString(R.string.userNotExists);
         firsNameEmpty = this.getResources().getString(R.string.firstNameEmpty);
         lastNameEmpty = this.getResources().getString(R.string.lastNameEmpty);
         confirmPassEmpty = this.getResources().getString(R.string.confirmPassEpty);
         passwordDontMatch = this.getResources().getString(R.string.passDontMatch);
         emailEmpty = this.getResources().getString(R.string.emailEmpty);
         passwordEmpty = this.getResources().getString(R.string.passwordEmpty);
-        authError = this.getResources().getString(R.string.authError);
         newUser = this.getResources().getString(R.string.newUser);
         oldUser = this.getResources().getString(R.string.existingUser);
         forgottenPass = this.getResources().getString(R.string.forgotPassword);
@@ -123,17 +134,44 @@ public class SignInActivity extends AppCompatActivity {
         txt_forgotten.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(SignInActivity.this, "In progress!", Toast.LENGTH_SHORT).show();
+                layout_signIn.setVisibility(View.GONE);
+                txt_register.setVisibility(View.GONE);
+                layout_resetPass.setVisibility(View.VISIBLE);
             }
         });
+    }
+
+    // Send email to user about resetting the password
+    public void onResetClick(View view) {
+        email = edit_emailReset.getText().toString();
+        final String emailSent = this.getResources().getString(R.string.emailSent);
+        if (email.isEmpty()) {
+            Toast.makeText(SignInActivity.this, emailEmpty, Toast.LENGTH_SHORT).show();
+        } else {
+            auth.useAppLanguage();
+            auth.sendPasswordResetEmail(email)
+                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if (task.isSuccessful()) {
+                                Toast.makeText(SignInActivity.this, emailSent, Toast.LENGTH_SHORT).show();
+                                layout_resetPass.setVisibility(View.GONE);
+                                layout_signIn.setVisibility(View.VISIBLE);
+                                txt_register.setVisibility(View.VISIBLE);
+                            } else {
+                                Toast.makeText(SignInActivity.this, userNotExists, Toast.LENGTH_LONG).show();
+                            }
+                        }
+                    });
+        }
     }
 
     // Create new user
     public void onRegisterClick(View view) {
 
         // Get input
-        String firstName = edit_firstName.getText().toString();
-        String lastName = edit_lastName.getText().toString();
+        final String firstName = edit_firstName.getText().toString();
+        final String lastName = edit_lastName.getText().toString();
         email = edit_email.getText().toString();
         password = edit_password.getText().toString();
         String confirmPassword = edit_confirmPass.getText().toString();
@@ -159,23 +197,33 @@ public class SignInActivity extends AppCompatActivity {
             edit_confirmPass.setText("");
 
         } else {
-
             auth.createUserWithEmailAndPassword(email, password)
                     .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()) {
                                 Log.d(TAG, "createUserWithEmail:success");
-                                Intent main = new Intent(SignInActivity.this, MainActivity.class);
-                                startActivity(main);
+
+                                // Set the name as Display name
+                                UserProfileChangeRequest profile = new UserProfileChangeRequest.Builder()
+                                        .setDisplayName(firstName + ' ' + lastName).build();
+
+                                auth.getCurrentUser().updateProfile(profile).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
+                                        if(task.isSuccessful()){
+                                            Log.d(TAG, "Displayname is set");
+                                            Intent main = new Intent(SignInActivity.this, MainActivity.class);
+                                            startActivity(main);
+                                        }
+                                    }
+                                });
+
                             } else {
                                 Log.w(TAG, "createUserWithEmail:failure", task.getException());
-                                if (task.getException() != null) {
-                                    Toast.makeText(SignInActivity.this, task.getException().getLocalizedMessage(), Toast.LENGTH_LONG).show();
-                                } else {
-                                    Toast.makeText(SignInActivity.this, authError, Toast.LENGTH_SHORT).show();
+                                if (giveExceptionError(task.getException()) == 3) {
+                                    edit_email.setText("");
                                 }
-
                             }
                         }
                     });
@@ -207,23 +255,63 @@ public class SignInActivity extends AppCompatActivity {
                                 startActivity(main);
                             } else {
                                 Log.w(TAG, "signInWithEmail:failure", task.getException());
-                                if (task.getException() != null) {
-                                    String error = task.getException().getLocalizedMessage();
-                                    Log.d(TAG, "HELLO " + error);
-                                    Toast.makeText(SignInActivity.this, error, Toast.LENGTH_LONG).show();
 
-                                    if(error.contains("The password is invalid")){
-                                        // If password is invalid
-                                        Log.d(TAG, "HELOOOO");
-                                        txt_forgotten.setVisibility(View.VISIBLE);
-                                    }
+                                if (giveExceptionError(task.getException()) == 2) {
+                                    // If password is invalid
+                                    txt_forgotten.setVisibility(View.VISIBLE);
                                 } else {
-                                    Toast.makeText(SignInActivity.this, authError, Toast.LENGTH_SHORT).show();
                                     txt_forgotten.setVisibility(View.GONE);
                                 }
                             }
                         }
                     });
         }
+    }
+
+    private int giveExceptionError(Exception exception) {
+        final String weakPassword = this.getResources().getString(R.string.weakPassword);
+        final String invalidEmail = this.getResources().getString(R.string.invalidEmail);
+        final String emailInUse = this.getResources().getString(R.string.emailInUse);
+        final String invalidCred = this.getResources().getString(R.string.invalidCred);
+        final String tooManyReq = this.getResources().getString(R.string.tooManyReq);
+
+        if (exception != null) {
+            try {
+                throw exception;
+            } catch (FirebaseAuthWeakPasswordException e) {
+                // Weak password, less than 6 chars
+                Toast.makeText(SignInActivity.this, weakPassword, Toast.LENGTH_LONG).show();
+                return 0;
+
+            } catch (FirebaseAuthInvalidCredentialsException e) {
+
+                if (e.getErrorCode().equals("ERROR_INVALID_EMAIL")) {
+                    // Invalid email
+                    Toast.makeText(SignInActivity.this, invalidEmail, Toast.LENGTH_LONG).show();
+                    return 1;
+                } else if (e.getErrorCode().equals("ERROR_WRONG_PASSWORD")) {
+                    // Wrong password
+                    Toast.makeText(SignInActivity.this, invalidCred, Toast.LENGTH_LONG).show();
+                    return 2;
+                }
+
+            } catch (FirebaseAuthInvalidUserException e) {
+                // User doesn't exist
+                Toast.makeText(SignInActivity.this, userNotExists, Toast.LENGTH_LONG).show();
+                return 3;
+
+            } catch (FirebaseAuthUserCollisionException e) {
+                // E-mail already in use
+                Toast.makeText(SignInActivity.this, emailInUse, Toast.LENGTH_LONG).show();
+                return 4;
+
+            } catch (FirebaseTooManyRequestsException e) {
+                Toast.makeText(SignInActivity.this, tooManyReq, Toast.LENGTH_LONG).show();
+                return 5;
+            } catch (Exception e) {
+                Log.e(TAG, e.getMessage());
+            }
+        }
+        return -1;
     }
 }

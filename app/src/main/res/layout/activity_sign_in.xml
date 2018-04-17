@@ -112,13 +112,13 @@
 
         <ImageView
             android:id="@+id/image_logo"
-            android:contentDescription="@string/imageDescription"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
+            android:layout_above="@id/edit_emailLogIn"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
-            android:layout_above="@id/edit_emailLogIn"
             android:layout_marginTop="20dp"
+            android:contentDescription="@string/imageDescription"
             app:srcCompat="@mipmap/ic_launcher_foreground" />
 
         <EditText
@@ -150,10 +150,10 @@
             android:id="@+id/btn_logIn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_above="@id/txt_forgotten"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="40dp"
-            android:layout_above="@id/txt_forgotten"
             android:background="@android:color/holo_green_dark"
             android:onClick="onLogInClick"
             android:text="@string/logIn"
@@ -172,6 +172,60 @@
             android:textStyle="bold"
             android:visibility="gone"
             tools:text="Forgot password?" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/layout_resetPassword"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_marginBottom="100dp"
+        android:layout_marginTop="100dp"
+        android:paddingEnd="20dp"
+        android:paddingStart="20dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/resetTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/edit_emailReset"
+            android:layout_marginBottom="50dp"
+            android:layout_marginTop="10dp"
+            android:text="@string/resetPassword"
+            android:textAlignment="center"
+            android:textColor="@android:color/black"
+            android:textSize="36sp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/edit_emailReset"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/btn_sendEmail"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="50dp"
+            android:ems="10"
+            android:hint="@string/email"
+            android:inputType="textEmailAddress" />
+
+        <Button
+            android:id="@+id/btn_sendEmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="150dp"
+            android:background="@android:color/holo_green_dark"
+            android:onClick="onResetClick"
+            android:text="@string/sendEmail"
+            android:textColor="@android:color/white"
+            android:textSize="20sp"
+            android:visibility="visible" />
 
     </RelativeLayout>
 

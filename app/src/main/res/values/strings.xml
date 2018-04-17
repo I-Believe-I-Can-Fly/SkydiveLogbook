@@ -39,4 +39,13 @@
     <string name="boldLogin">Log in.</string>
     <string name="imageDescription">Image of app logo</string>
     <string name="forgotPassword">Forgot Password?</string>
+    <string name="weakPassword">Error: The password is too weak, it should be atleast 6 characters long</string>
+    <string name="invalidEmail">Error: Not an valid E-mail!</string>
+    <string name="userNotExists">Error: The user does not exists!</string>
+    <string name="emailInUse">Error: The E-mail is already in use!</string>
+    <string name="invalidCred">Error: Not correct password or email!</string>
+    <string name="tooManyReq">Error: Blocked all requests from this device due to unusual activity, try again later!</string>
+    <string name="sendEmail">Send Email</string>
+    <string name="resetPassword">Reset Password</string>
+    <string name="emailSent">An email has been sent to your email address</string>
 </resources>
