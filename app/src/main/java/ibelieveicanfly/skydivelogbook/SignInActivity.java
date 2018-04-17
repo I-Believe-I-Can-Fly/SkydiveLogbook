@@ -41,6 +41,10 @@ public class SignInActivity extends AppCompatActivity {
 
     // Create new user
     public void onRegisterClick(View view) {
+        // E-Mail
+        // Name
+        // Date of birth
+        // Password
         if (inputOK()) {
             /*
             auth.createUserWithEmailAndPassword(email, password)
@@ -63,6 +67,8 @@ public class SignInActivity extends AppCompatActivity {
 
     // Sign in existing user
     public void onSignInClick(View view) {
+        // Email
+        // Password
         if (inputOK()) {
             /*
             auth.signInWithEmailAndPassword(email, password)
