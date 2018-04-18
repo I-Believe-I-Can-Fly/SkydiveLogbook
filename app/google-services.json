@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "365993170325-qg7eo8eet9ma67aatt7793fp3kh64hh6.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "ibelieveicanfly.skydivelogbook",
+            "certificate_hash": "56981db19d871732e73fd5595097ec446dd687c9"
+          }
+        },
+        {
           "client_id": "365993170325-q59uo98gib2bnerkq4ed450qob8ufl48.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {

@@ -2,9 +2,11 @@ package ibelieveicanfly.skydivelogbook;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -33,6 +35,17 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         adapter = new CustomAdapter(this);
 
+        //Floating action button for adding new pages to the logbook
+        FloatingActionButton fab = findViewById(R.id.fab);
+        fab.setImageResource(R.drawable.ic_add_white_48dp); //adds the plus icon to the button
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, CreatePageActivity.class);
+                startActivity(intent);
+            }
+        });
+
         TEST();
         refreshListAdapter();
     }
@@ -44,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
         if (currentUser != null) {
             // User is signed in
 
-           // auth.signOut();
+            // auth.signOut();
             // Code here ...
         } else {
             // User is not signed in
@@ -60,13 +73,13 @@ public class MainActivity extends AppCompatActivity {
         //We in turn set the adapter to the RecyclerView
         recyclerView.setAdapter(adapter);
         //Scroll to bottom :)
-        recyclerView.scrollToPosition(jumpList.size()-1);
+        recyclerView.scrollToPosition(jumpList.size() - 1);
     }
 
     public void TEST() {
         //fill with empty data
-        for (int i = 0; i < 100; i++){
-            LogbookPage page = new LogbookPage(i+1, "a", "a", "a", "a", "a", "a", "a", "a", "a", true);
+        for (int i = 0; i < 100; i++) {
+            LogbookPage page = new LogbookPage(i + 1, "a", "a", "a", "a", "a", "a", "a", "a", true);
             jumpList.add(page);
         }
     }

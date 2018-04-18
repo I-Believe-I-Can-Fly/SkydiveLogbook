@@ -30,7 +30,7 @@ public class LogbookPage {
                        String freefall,
                        String canopy,
                        String comments,
-                       String signature,
+                       //String signature,
                        boolean approved) {
         this.jumpNr = jumpNr;
         this.date = date;
@@ -41,7 +41,7 @@ public class LogbookPage {
         this.freefall = freefall;
         this.canopy = canopy;
         this.comments = comments;
-        this.signature = signature;
+       // this.signature = signature;
         this.approved = false;
     }
 
@@ -132,4 +132,20 @@ public class LogbookPage {
     public void setApproved(boolean approved) {
         this.approved = approved;
     }
+
+    /*
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(jumpNr);
+        dest.writeString(date);
+        dest.writeString(dz);
+        dest.writeString(plane);
+        dest.writeString(equipment);
+        dest.writeString(exit);
+        dest.writeString(freefall);
+        dest.writeString(canopy);
+        dest.writeString(comments);
+        dest.writeString(signature);
+        dest.writeBooleanArray(approved);
+    }*/
 }
