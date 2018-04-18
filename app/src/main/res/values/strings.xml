@@ -52,4 +52,6 @@
     <!-- sup -->
     <string name="approved">Approved</string>
     <string name="notApproved">Waiting</string>
+    <string name="license">License Number</string>
+    <string name="certificate">Certificate Letter</string>
 </resources>

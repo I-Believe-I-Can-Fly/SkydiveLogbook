@@ -12,19 +12,15 @@ import com.google.firebase.auth.FirebaseUser;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
-    private FirebaseAuth auth;
-
     RecyclerView recyclerView;
     CustomAdapter adapter;
-
+    private FirebaseAuth auth;
     private ArrayList<LogbookPage> jumpList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        //    String helloText = this.getResources().getString(R.string.hello);
 
         auth = FirebaseAuth.getInstance();
         userStatus(auth.getCurrentUser());
@@ -44,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
         if (currentUser != null) {
             // User is signed in
 
-           // auth.signOut();
+            // auth.signOut();
             // Code here ...
         } else {
             // User is not signed in
@@ -60,13 +56,13 @@ public class MainActivity extends AppCompatActivity {
         //We in turn set the adapter to the RecyclerView
         recyclerView.setAdapter(adapter);
         //Scroll to bottom :)
-        recyclerView.scrollToPosition(jumpList.size()-1);
+        recyclerView.scrollToPosition(jumpList.size() - 1);
     }
 
     public void TEST() {
         //fill with empty data
-        for (int i = 0; i < 100; i++){
-            LogbookPage page = new LogbookPage(i+1, "a", "a", "a", "a", "a", "a", "a", "a", "a", true);
+        for (int i = 0; i < 100; i++) {
+            LogbookPage page = new LogbookPage(i + 1, "a", "a", "a", "a", "a", "a", "a", "a", "a", true);
             jumpList.add(page);
         }
     }

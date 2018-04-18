@@ -11,10 +11,11 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:layout_marginBottom="100dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="0dp"
         android:paddingEnd="20dp"
         android:paddingStart="20dp"
-        android:visibility="gone"
+        android:paddingTop="20dp"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -22,39 +23,81 @@
 
         <EditText
             android:id="@+id/edit_firstName"
-            android:layout_width="177dp"
+            android:layout_width="160dp"
             android:layout_height="wrap_content"
-            android:layout_above="@id/edit_email"
-            android:layout_marginBottom="10dp"
+            android:layout_above="@id/edit_certificate"
+            android:layout_marginBottom="5dp"
             android:layout_marginEnd="10dp"
             android:ems="10"
             android:hint="@string/firstName"
-            android:inputType="textPersonName"
-            android:visibility="visible" />
+            android:imeOptions="actionNext"
+            android:inputType="textPersonName|textCapWords"
+            android:nextFocusRight="@+id/edit_lastName"
+            android:visibility="visible">
+
+            <requestFocus />
+        </EditText>
 
         <EditText
             android:id="@+id/edit_lastName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_above="@id/edit_email"
-            android:layout_marginBottom="10dp"
+            android:layout_above="@id/edit_license"
+            android:layout_marginBottom="5dp"
             android:layout_marginStart="8dp"
             android:layout_toEndOf="@id/edit_firstName"
             android:ems="10"
             android:hint="@string/lastName"
-            android:inputType="textPersonName"
+            android:imeOptions="actionNext"
+            android:inputType="textPersonName|textCapWords"
+            android:nextFocusDown="@+id/edit_certificate"
             android:visibility="visible" />
+
+        <EditText
+            android:id="@+id/edit_certificate"
+            android:layout_width="160dp"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/edit_email"
+            android:layout_marginBottom="5dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginTop="20dp"
+            android:ems="2"
+            android:hint="@string/certificate"
+            android:imeOptions="actionNext"
+            android:inputType="text|textCapCharacters"
+            android:maxLength="1"
+            android:nextFocusRight="@+id/edit_license"
+            android:textAllCaps="true" />
+
+        <EditText
+            android:id="@+id/edit_license"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/edit_email"
+            android:layout_marginBottom="5dp"
+            android:layout_marginEnd="0dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="20dp"
+            android:layout_toEndOf="@id/edit_certificate"
+            android:ems="8"
+            android:hint="@string/license"
+            android:imeOptions="actionNext"
+            android:inputType="number"
+            android:maxLength="6"
+            android:nextFocusDown="@+id/edit_email" />
 
         <EditText
             android:id="@+id/edit_email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_above="@id/edit_password"
-            android:layout_marginBottom="10dp"
+            android:layout_marginBottom="5dp"
             android:layout_marginTop="20dp"
             android:ems="10"
             android:hint="@string/email"
-            android:inputType="textEmailAddress"
+            android:imeOptions="actionNext"
+            android:inputType="textEmailAddress|textCapSentences"
+            android:nextFocusDown="@+id/edit_password"
             android:visibility="visible" />
 
         <EditText
@@ -62,11 +105,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_above="@id/edit_confirmPass"
-            android:layout_marginBottom="10dp"
+            android:layout_marginBottom="5dp"
             android:layout_marginTop="20dp"
             android:ems="10"
             android:hint="@string/password"
+            android:imeOptions="actionNext"
             android:inputType="textPassword"
+            android:nextFocusDown="@+id/edit_confirmPass"
             android:visibility="visible" />
 
         <EditText
@@ -74,7 +119,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_above="@id/btn_register"
-            android:layout_marginBottom="50dp"
+            android:layout_marginBottom="30dp"
             android:layout_marginTop="20dp"
             android:ems="10"
             android:hint="@string/confirmPassword"
@@ -101,10 +146,9 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:layout_marginBottom="100dp"
-        android:layout_marginTop="100dp"
         android:paddingEnd="20dp"
         android:paddingStart="20dp"
-        android:visibility="visible"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -117,6 +161,7 @@
             android:layout_above="@id/edit_emailLogIn"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
+            android:layout_marginBottom="10dp"
             android:layout_marginTop="20dp"
             android:contentDescription="@string/imageDescription"
             app:srcCompat="@mipmap/ic_launcher_foreground" />
@@ -125,7 +170,7 @@
             android:id="@+id/edit_emailLogIn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_above="@id/edit_passwordLogIn"
+            android:layout_above="@id/textInputLayout"
             android:layout_marginBottom="10dp"
             android:layout_marginTop="20dp"
             android:ems="10"
@@ -133,18 +178,24 @@
             android:inputType="textEmailAddress"
             android:visibility="visible" />
 
-        <EditText
-            android:id="@+id/edit_passwordLogIn"
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/textInputLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_above="@id/btn_logIn"
             android:layout_marginBottom="10dp"
             android:layout_marginTop="10dp"
-            android:ems="10"
-            android:hint="@string/password"
-            android:inputType="textPassword"
-            android:visibility="visible" />
+            app:passwordToggleEnabled="true">
 
+            <EditText
+                android:id="@+id/edit_passwordLogIn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="@string/password"
+                android:inputType="textPassword"
+                android:visibility="visible" />
+        </android.support.design.widget.TextInputLayout>
 
         <Button
             android:id="@+id/btn_logIn"
