@@ -34,6 +34,8 @@ public class SignInActivity extends AppCompatActivity {
     private EditText edit_emailLogIn;
     private EditText edit_passwordLogIn;
     private EditText edit_emailReset;
+    private EditText edit_certificate;
+    private EditText edit_license;
     private TextView txt_register;
     private TextView txt_forgotten;
     private FirebaseAuth auth;
@@ -61,10 +63,18 @@ public class SignInActivity extends AppCompatActivity {
         setContentView(R.layout.activity_sign_in);
 
         getValues();
-        // TODO : Add license number
+        // TODO : finish onBackPressed
+        // TODO : The phone has to be at least 5' 1080x1920 420dpi For the whole register form to show...Fix this!
+        // TODO : first name - last name and certificate - license is not to the middle of the screen
+        // TODO : Add toggle button on password and password confirm
 
+        edit_password.setTransformationMethod(null);
         txt_register.setText(Html.fromHtml(newUser + boldRegister));
         txt_forgotten.setText(forgottenPass);
+
+        layout_register.setVisibility(View.GONE);
+        layout_resetPass.setVisibility(View.GONE);
+        layout_signIn.setVisibility(View.VISIBLE);
 
         onRegisterClick();
         onForgottenClick();
@@ -72,7 +82,23 @@ public class SignInActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        // TODO : code here ...
+        /*
+        if(layout_signIn.getVisibility() == View.VISIBLE){
+            moveTaskToBack(true);
+        } else if( layout_register.getVisibility() == View.VISIBLE){
+            layout_register.setVisibility(View.GONE);
+            layout_signIn.setVisibility(View.VISIBLE);
+        } else if (layout_register.getVisibility() == View.VISIBLE){
+            layout_register.setVisibility(View.GONE);
+            layout_signIn.setVisibility(View.VISIBLE);
+        }
+        */
+        // if sign in is open
+            // Ask if user is sure, second click = close app
+        // if register is open
+            // go to sign in
+        // if password reset is open
+            // go to sign in
     }
 
     private void getValues() {
@@ -85,6 +111,8 @@ public class SignInActivity extends AppCompatActivity {
         edit_password = findViewById(R.id.edit_password);
         edit_confirmPass = findViewById(R.id.edit_confirmPass);
         edit_emailReset = findViewById(R.id.edit_emailReset);
+        edit_certificate = findViewById(R.id.edit_certificate);
+        edit_license = findViewById(R.id.edit_license);
         txt_register = findViewById(R.id.txt_register);
         txt_forgotten = findViewById(R.id.txt_forgotten);
         layout_signIn = findViewById(R.id.layout_LogIn);

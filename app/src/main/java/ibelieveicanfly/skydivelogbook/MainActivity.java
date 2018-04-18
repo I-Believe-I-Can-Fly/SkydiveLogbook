@@ -14,19 +14,15 @@ import com.google.firebase.auth.FirebaseUser;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
-    private FirebaseAuth auth;
-
     RecyclerView recyclerView;
     CustomAdapter adapter;
-
+    private FirebaseAuth auth;
     private ArrayList<LogbookPage> jumpList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        //    String helloText = this.getResources().getString(R.string.hello);
 
         auth = FirebaseAuth.getInstance();
         userStatus(auth.getCurrentUser());
