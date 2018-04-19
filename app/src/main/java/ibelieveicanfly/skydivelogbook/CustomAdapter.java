@@ -2,6 +2,7 @@ package ibelieveicanfly.skydivelogbook;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -45,6 +46,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
         } else {
             String approvedTxt = context.getResources().getString(R.string.notApproved);
             holder.approved.setText(approvedTxt);
+            holder.approved.setTextColor(Color.parseColor("#FF0000"));
         }
     }
 
