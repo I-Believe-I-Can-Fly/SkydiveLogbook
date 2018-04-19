@@ -7,6 +7,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -20,15 +21,15 @@ public class PageActivity extends AppCompatActivity implements PageFragment.OnFr
     private CustomPagerAdapter mSectionsPagerAdapter;
     private ViewPager mViewPager;
 
-    private String USER;
-    private Integer JUMP;
+    private String userID;
+    private Integer JUMP = 0;
     private Integer ITEMS = 0;
 
     private FirebaseAuth auth;
     private FirebaseDatabase mDatabase;
     private DatabaseReference myRef;
 
-    private String userID;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,7 +53,6 @@ public class PageActivity extends AppCompatActivity implements PageFragment.OnFr
         //get extras
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
-            USER = extras.getString("user");
             JUMP = extras.getInt("jump");
         }
 
@@ -87,7 +87,9 @@ public class PageActivity extends AppCompatActivity implements PageFragment.OnFr
 
         @Override
         public Fragment getItem(int position) {
-            PageFragment pageFragment = new PageFragment().newInstance(USER, position);
+            // TODO: Send actual jumpNr instead of position, will not work unless the user logs every jump from jump 1.
+            PageFragment pageFragment = new PageFragment().newInstance(userID, position);
+            mViewPager.setCurrentItem(position);
             return pageFragment;
         }
 

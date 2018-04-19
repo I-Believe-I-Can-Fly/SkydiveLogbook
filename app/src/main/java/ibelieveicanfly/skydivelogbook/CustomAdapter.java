@@ -79,7 +79,6 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
         @Override
         public void onClick(View v) {
             Intent intent = new Intent(context, PageActivity.class);
-            intent.putExtra("user", "johan");
             intent.putExtra("jump", Integer.parseInt(jumpNr.getText().toString()));
             context.startActivity(intent);
         }

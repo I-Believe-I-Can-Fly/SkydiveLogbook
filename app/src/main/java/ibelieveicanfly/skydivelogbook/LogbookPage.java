@@ -5,7 +5,7 @@ import com.google.firebase.database.IgnoreExtraProperties;
 @IgnoreExtraProperties
 public class LogbookPage {
 
-    public Integer jumpNr;
+    public Integer jumpNr = 0;
     public String date;
     public String dz;
     public String plane;
