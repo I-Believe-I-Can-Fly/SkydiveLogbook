@@ -59,15 +59,12 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        //TEST();
         getLogs();
         refreshListAdapter();
     }
 
     // userStatus checks if user is signed in or not
     private void userStatus(FirebaseUser currentUser) {
-
-
         if (currentUser != null) {
             // User is signed in
 
@@ -81,6 +78,10 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * refreshListAdapter
+     * updates the recyclerView with new content and scrolls to bottom
+     */
     public void refreshListAdapter() {
         //We set the array to the adapter
         adapter.setListContent(jumpList);
@@ -90,6 +91,11 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.scrollToPosition(jumpList.size() - 1);
     }
 
+    /**
+     * getLogs
+     * retrieves log instances related to userID from database
+     * adds instances to list
+     */
     private void getLogs(){
         // Read from the database
         myRef.addValueEventListener(new ValueEventListener() {
@@ -111,11 +117,4 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    public void TEST() {
-        //fill with empty data
-        for (int i = 0; i < 100; i++) {
-            LogbookPage page = new LogbookPage(i + 1, "a", "a", "a", "a", "a", "a", "a", "a", true);
-            jumpList.add(page);
-        }
-    }
 }
