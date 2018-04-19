@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -16,7 +17,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-public class PageActivity extends AppCompatActivity implements PageFragment.OnFragmentInteractionListener {
+public class PageActivity extends AppCompatActivity {
 
     private CustomPagerAdapter mSectionsPagerAdapter;
     private ViewPager mViewPager;
@@ -36,6 +37,12 @@ public class PageActivity extends AppCompatActivity implements PageFragment.OnFr
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_page);
 
+        //get extras
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            JUMP = extras.getInt("jump");
+        }
+
         auth = FirebaseAuth.getInstance();
         //retrieve userid
         userID = auth.getCurrentUser().getUid();
@@ -49,14 +56,15 @@ public class PageActivity extends AppCompatActivity implements PageFragment.OnFr
         mSectionsPagerAdapter = new CustomPagerAdapter(getSupportFragmentManager());
         mViewPager = (ViewPager) findViewById(R.id.logPager);
         mViewPager.setAdapter(mSectionsPagerAdapter);
-
-        //get extras
-        Bundle extras = getIntent().getExtras();
-        if (extras != null) {
-            JUMP = extras.getInt("jump");
-        }
-
+        mViewPager.setOffscreenPageLimit(2);
+        mViewPager.post(new Runnable() {
+            @Override
+            public void run() {
+                mViewPager.setCurrentItem(JUMP-1);
+            }
+        });
     }
+
 
     private void loadPages() {
         // Read from the database
@@ -69,6 +77,7 @@ public class PageActivity extends AppCompatActivity implements PageFragment.OnFr
                     //update number of pages in pagerAdapter
                     mSectionsPagerAdapter.notifyDataSetChanged();
                 }
+
             }
 
             @Override
@@ -89,20 +98,14 @@ public class PageActivity extends AppCompatActivity implements PageFragment.OnFr
         public Fragment getItem(int position) {
             // TODO: Send actual jumpNr instead of position, will not work unless the user logs every jump from jump 1.
             PageFragment pageFragment = new PageFragment().newInstance(userID, position);
-            mViewPager.setCurrentItem(position);
             return pageFragment;
         }
 
         @Override
         public int getCount() {
-            // Show 100 total pages.
+            // Show x pages
             return ITEMS;
         }
-    }
-
-    @Override
-    public void onFragmentInteraction(Uri uri) {
-        //you can leave it empty
     }
 
 }
