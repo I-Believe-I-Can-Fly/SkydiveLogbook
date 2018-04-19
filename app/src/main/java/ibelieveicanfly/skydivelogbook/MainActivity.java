@@ -10,14 +10,24 @@ import android.view.View;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
-    RecyclerView recyclerView;
-    CustomAdapter adapter;
+    private RecyclerView recyclerView;
+    private CustomAdapter adapter;
     private FirebaseAuth auth;
+    private FirebaseDatabase mDatabase;
+    private DatabaseReference myRef;
+
     private ArrayList<LogbookPage> jumpList = new ArrayList<>();
+
+    private String userID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +36,13 @@ public class MainActivity extends AppCompatActivity {
 
         auth = FirebaseAuth.getInstance();
         userStatus(auth.getCurrentUser());
+
+        //retrieve userid
+        userID = auth.getCurrentUser().getUid();
+
+        this.mDatabase = FirebaseDatabase.getInstance();
+        this.myRef = mDatabase.getReference(userID);
+
 
         this.recyclerView = (RecyclerView) this.findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -42,7 +59,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        TEST();
+        //TEST();
+        getLogs();
         refreshListAdapter();
     }
 
@@ -70,6 +88,27 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
         //Scroll to bottom :)
         recyclerView.scrollToPosition(jumpList.size() - 1);
+    }
+
+    private void getLogs(){
+        // Read from the database
+        myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                jumpList.clear();
+                for(DataSnapshot child: dataSnapshot.getChildren()) {
+                    LogbookPage logbookPage = child.getValue(LogbookPage.class);
+                    jumpList.add(logbookPage);
+
+                    refreshListAdapter();
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                // rip
+            }
+        });
     }
 
     public void TEST() {

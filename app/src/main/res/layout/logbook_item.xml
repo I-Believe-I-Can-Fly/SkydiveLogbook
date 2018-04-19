@@ -2,26 +2,26 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_marginTop="5dp">
 
 
     <TextView
         android:id="@+id/item_jumpNr"
-        android:layout_width="102dp"
-        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="8dp"
-        android:text="134"
+        android:text="12345"
         android:textColor="@android:color/black"
-        android:textSize="24sp"
-         />
+        android:textSize="24sp" />
 
     <TextView
         android:id="@+id/item_DZ"
-        android:layout_width="89dp"
-        android:layout_height="wrap_content"
+        android:layout_width="113dp"
+        android:layout_height="40dp"
         android:layout_alignParentTop="true"
+        android:layout_marginStart="19dp"
         android:layout_toEndOf="@+id/item_jumpNr"
         android:text="OFSK"
         android:textAlignment="center"
@@ -40,9 +40,9 @@
     <TextView
         android:id="@+id/item_signed"
         android:layout_width="118dp"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:layout_alignParentTop="true"
-        android:layout_toEndOf="@+id/item_DZ"
+        android:layout_toStartOf="@+id/item_date"
         android:text="Approved"
         android:textAlignment="center"
         android:textColor="@android:color/holo_green_dark"

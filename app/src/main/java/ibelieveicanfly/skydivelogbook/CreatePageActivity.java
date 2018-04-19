@@ -9,26 +9,30 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 public class CreatePageActivity extends AppCompatActivity {
 
-    EditText mJumpNr;
-    EditText mDate;
-    EditText mDz;
-    EditText mPlane;
-    EditText mEquipment;
-    EditText mExit;
-    EditText mFreefall;
-    EditText mCanopy;
-    EditText mComments;
-    TextView mSignature;
-    boolean mApproved = false;
+    private EditText mJumpNr;
+    private EditText mDate;
+    private EditText mDz;
+    private EditText mPlane;
+    private EditText mEquipment;
+    private EditText mExit;
+    private EditText mFreefall;
+    private EditText mCanopy;
+    private EditText mComments;
+    private TextView mSignature;
+    private boolean mApproved = false;
 
     private FirebaseDatabase mDatabase;
     private DatabaseReference myRef;
+    private FirebaseAuth auth;
+    private String userID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,8 +50,15 @@ public class CreatePageActivity extends AppCompatActivity {
         mComments = (EditText)findViewById(R.id.page_comments);
         mSignature = (TextView)findViewById(R.id.page_signed);
 
+        // TODO: Auto complete most of the inputs
+
+
+        auth = FirebaseAuth.getInstance();
+        //retrieve userid
+        userID = auth.getCurrentUser().getUid();
+
         this.mDatabase = FirebaseDatabase.getInstance();
-        this.myRef = mDatabase.getReference("pages");
+        this.myRef = mDatabase.getReference(userID);
     }
 
     /**
@@ -93,6 +104,8 @@ public class CreatePageActivity extends AppCompatActivity {
     }
 
     private LogbookPage getDataFromLogbook(){
+        // TODO: Make it more useful
+        //'atomic'-wannabe variable to make sure fields are filled
         boolean filled = true;
 
         if(TextUtils.isEmpty(mJumpNr.getText())){
@@ -121,7 +134,7 @@ public class CreatePageActivity extends AppCompatActivity {
         }
 
         if(filled) {
-            LogbookPage logbookPage = new LogbookPage(
+            return new LogbookPage(
                     Integer.parseInt(mJumpNr.getText().toString()),
                     mDate.getText().toString(),
                     mDz.getText().toString(),
@@ -133,8 +146,8 @@ public class CreatePageActivity extends AppCompatActivity {
                     mComments.getText().toString(),
                     mApproved
             );
-
-            return logbookPage;
+        }else{
+            Toast.makeText(getApplicationContext(), "Required fields not filled", Toast.LENGTH_SHORT).show();
         }
         return null;
     }
