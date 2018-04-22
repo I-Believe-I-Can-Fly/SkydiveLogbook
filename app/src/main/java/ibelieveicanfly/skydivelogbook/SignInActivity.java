@@ -25,8 +25,6 @@ import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import java.security.cert.Certificate;
-
 public class SignInActivity extends AppCompatActivity {
 
     private static final String TAG = "SignInActivity";
@@ -53,6 +51,9 @@ public class SignInActivity extends AppCompatActivity {
     private String email;
     private String password;
     private String newUser;
+    private String certificateEmpty;
+    private String licenseEmpty;
+    private String dobEmpty;
     private String oldUser;
     private String boldRegister;
     private String boldLogin;
@@ -68,10 +69,8 @@ public class SignInActivity extends AppCompatActivity {
         setContentView(R.layout.activity_sign_in);
 
         getValues();
-        // TODO : finish onBackPressed
         // TODO : The phone has to be at least 5' 1080x1920 420dpi For the whole register form to show...Fix this!
         // TODO : first name - last name and certificate - license is not to the middle of the screen
-        // TODO : Add toggle button on password and password confirm
 
         txt_register.setText(Html.fromHtml(newUser + boldRegister));
         txt_forgotten.setText(forgottenPass);
@@ -86,23 +85,18 @@ public class SignInActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        /*
-        if(layout_signIn.getVisibility() == View.VISIBLE){
+        if (layout_signIn.getVisibility() == View.VISIBLE) {
             moveTaskToBack(true);
-        } else if( layout_register.getVisibility() == View.VISIBLE){
+
+        } else if (layout_register.getVisibility() == View.VISIBLE) {
             layout_register.setVisibility(View.GONE);
             layout_signIn.setVisibility(View.VISIBLE);
-        } else if (layout_register.getVisibility() == View.VISIBLE){
-            layout_register.setVisibility(View.GONE);
+
+        } else if (layout_resetPass.getVisibility() == View.VISIBLE) {
+            layout_resetPass.setVisibility(View.GONE);
             layout_signIn.setVisibility(View.VISIBLE);
+
         }
-        */
-        // if sign in is open
-        // Ask if user is sure, second click = close app
-        // if register is open
-        // go to sign in
-        // if password reset is open
-        // go to sign in
     }
 
     private void getValues() {
@@ -132,6 +126,9 @@ public class SignInActivity extends AppCompatActivity {
         firsNameEmpty = this.getResources().getString(R.string.firstNameEmpty);
         lastNameEmpty = this.getResources().getString(R.string.lastNameEmpty);
         confirmPassEmpty = this.getResources().getString(R.string.confirmPassEpty);
+        licenseEmpty = this.getResources().getString(R.string.licenseEmpty);
+        certificateEmpty = this.getResources().getString(R.string.certificateEmpty);
+        dobEmpty = this.getResources().getString(R.string.dobEmpty);
         passwordDontMatch = this.getResources().getString(R.string.passDontMatch);
         emailEmpty = this.getResources().getString(R.string.emailEmpty);
         passwordEmpty = this.getResources().getString(R.string.passwordEmpty);
@@ -219,13 +216,13 @@ public class SignInActivity extends AppCompatActivity {
             Toast.makeText(SignInActivity.this, lastNameEmpty, Toast.LENGTH_SHORT).show();
 
         } else if (certificate.isEmpty()) {
-            Toast.makeText(SignInActivity.this, "", Toast.LENGTH_SHORT).show();
+            Toast.makeText(SignInActivity.this, certificateEmpty, Toast.LENGTH_SHORT).show();
 
         } else if (license.isEmpty()) {
-            Toast.makeText(SignInActivity.this, "", Toast.LENGTH_SHORT).show();
+            Toast.makeText(SignInActivity.this, licenseEmpty, Toast.LENGTH_SHORT).show();
 
         } else if (dateOfBirth.isEmpty()) {
-            Toast.makeText(SignInActivity.this, "", Toast.LENGTH_SHORT).show();
+            Toast.makeText(SignInActivity.this, dobEmpty, Toast.LENGTH_SHORT).show();
 
         } else if (email.isEmpty()) {
             Toast.makeText(SignInActivity.this, emailEmpty, Toast.LENGTH_SHORT).show();
@@ -236,7 +233,7 @@ public class SignInActivity extends AppCompatActivity {
         } else if (confirmPassword.isEmpty()) {
             Toast.makeText(SignInActivity.this, confirmPassEmpty, Toast.LENGTH_SHORT).show();
 
-        } else if(!dateOfBirth.matches("^[0-9][1-9]/[0-9][1-9]/[1-9]{4}")){
+        } else if (!dateOfBirth.matches("^[0-9][1-9]/[0-9][1-9]/[1-9]{4}")) {
             Toast.makeText(SignInActivity.this, "not a valid date", Toast.LENGTH_SHORT).show();
 
         } else if (!password.equals(confirmPassword)) {
@@ -369,7 +366,7 @@ public class SignInActivity extends AppCompatActivity {
     }
 
     // Adds user to database
-    private void addUserToDB(User user, String userId){
+    private void addUserToDB(User user, String userId) {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference reference = database.getReference("Users");
 
