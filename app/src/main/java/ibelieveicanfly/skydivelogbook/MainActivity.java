@@ -37,13 +37,6 @@ public class MainActivity extends AppCompatActivity {
         auth = FirebaseAuth.getInstance();
         userStatus(auth.getCurrentUser());
 
-        //retrieve userid
-        userID = auth.getCurrentUser().getUid();
-
-        this.mDatabase = FirebaseDatabase.getInstance();
-        this.myRef = mDatabase.getReference(userID);
-
-
         this.recyclerView = (RecyclerView) this.findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         adapter = new CustomAdapter(this);
@@ -59,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        getLogs();
+
         refreshListAdapter();
     }
 
@@ -67,9 +60,12 @@ public class MainActivity extends AppCompatActivity {
     private void userStatus(FirebaseUser currentUser) {
         if (currentUser != null) {
             // User is signed in
+            //retrieve userid
+            userID = auth.getCurrentUser().getUid();
+            this.mDatabase = FirebaseDatabase.getInstance();
+            this.myRef = mDatabase.getReference(userID);
 
-            // auth.signOut();
-            // Code here ...
+            getLogs();
         } else {
             // User is not signed in
 
