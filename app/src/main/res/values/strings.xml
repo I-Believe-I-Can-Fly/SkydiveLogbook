@@ -55,4 +55,5 @@
 
     <string name="license">License Number</string>
     <string name="certificate">Certificate Letter</string>
+    <string name="dob">Date of Birth(dd/mm/yyyy)</string>
 </resources>

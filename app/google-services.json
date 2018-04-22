@@ -15,6 +15,22 @@
       },
       "oauth_client": [
         {
+          "client_id": "365993170325-jhsvds98cg8tgatcaru1nbhk5l0g0fot.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "ibelieveicanfly.skydivelogbook",
+            "certificate_hash": "bb83ea3505e4c288d57190a4dc771689115aad42"
+          }
+        },
+        {
+          "client_id": "365993170325-nk93eqls4vce2jav0plkd5s2h50qbocn.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "ibelieveicanfly.skydivelogbook",
+            "certificate_hash": "83860ca65b99c14a78634ef1511b58398c699bdc"
+          }
+        },
+        {
           "client_id": "365993170325-qg7eo8eet9ma67aatt7793fp3kh64hh6.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {

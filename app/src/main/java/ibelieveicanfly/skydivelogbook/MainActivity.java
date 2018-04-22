@@ -6,6 +6,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -19,6 +20,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
+    private static final String TAG = "MainActivity";
     private RecyclerView recyclerView;
     private CustomAdapter adapter;
     private FirebaseAuth auth;
@@ -61,7 +63,9 @@ public class MainActivity extends AppCompatActivity {
         if (currentUser != null) {
             // User is signed in
             //retrieve userid
+
             userID = auth.getCurrentUser().getUid();
+            Log.d(TAG, userID);
             this.mDatabase = FirebaseDatabase.getInstance();
             this.myRef = mDatabase.getReference(userID);
 
