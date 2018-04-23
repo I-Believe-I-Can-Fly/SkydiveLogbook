@@ -22,6 +22,8 @@ import com.google.firebase.auth.FirebaseAuthInvalidUserException;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseAuthWeakPasswordException;
 import com.google.firebase.auth.UserProfileChangeRequest;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class SignInActivity extends AppCompatActivity {
 
@@ -36,6 +38,7 @@ public class SignInActivity extends AppCompatActivity {
     private EditText edit_emailReset;
     private EditText edit_certificate;
     private EditText edit_license;
+    private EditText edit_DOB;
     private TextView txt_register;
     private TextView txt_forgotten;
     private FirebaseAuth auth;
@@ -48,6 +51,9 @@ public class SignInActivity extends AppCompatActivity {
     private String email;
     private String password;
     private String newUser;
+    private String certificateEmpty;
+    private String licenseEmpty;
+    private String dobEmpty;
     private String oldUser;
     private String boldRegister;
     private String boldLogin;
@@ -63,12 +69,9 @@ public class SignInActivity extends AppCompatActivity {
         setContentView(R.layout.activity_sign_in);
 
         getValues();
-        // TODO : finish onBackPressed
         // TODO : The phone has to be at least 5' 1080x1920 420dpi For the whole register form to show...Fix this!
         // TODO : first name - last name and certificate - license is not to the middle of the screen
-        // TODO : Add toggle button on password and password confirm
 
-        edit_password.setTransformationMethod(null);
         txt_register.setText(Html.fromHtml(newUser + boldRegister));
         txt_forgotten.setText(forgottenPass);
 
@@ -82,23 +85,18 @@ public class SignInActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        /*
-        if(layout_signIn.getVisibility() == View.VISIBLE){
+        if (layout_signIn.getVisibility() == View.VISIBLE) {
             moveTaskToBack(true);
-        } else if( layout_register.getVisibility() == View.VISIBLE){
+
+        } else if (layout_register.getVisibility() == View.VISIBLE) {
             layout_register.setVisibility(View.GONE);
             layout_signIn.setVisibility(View.VISIBLE);
-        } else if (layout_register.getVisibility() == View.VISIBLE){
-            layout_register.setVisibility(View.GONE);
+
+        } else if (layout_resetPass.getVisibility() == View.VISIBLE) {
+            layout_resetPass.setVisibility(View.GONE);
             layout_signIn.setVisibility(View.VISIBLE);
+
         }
-        */
-        // if sign in is open
-            // Ask if user is sure, second click = close app
-        // if register is open
-            // go to sign in
-        // if password reset is open
-            // go to sign in
     }
 
     private void getValues() {
@@ -113,6 +111,7 @@ public class SignInActivity extends AppCompatActivity {
         edit_emailReset = findViewById(R.id.edit_emailReset);
         edit_certificate = findViewById(R.id.edit_certificate);
         edit_license = findViewById(R.id.edit_license);
+        edit_DOB = findViewById(R.id.edit_DOB);
         txt_register = findViewById(R.id.txt_register);
         txt_forgotten = findViewById(R.id.txt_forgotten);
         layout_signIn = findViewById(R.id.layout_LogIn);
@@ -127,6 +126,9 @@ public class SignInActivity extends AppCompatActivity {
         firsNameEmpty = this.getResources().getString(R.string.firstNameEmpty);
         lastNameEmpty = this.getResources().getString(R.string.lastNameEmpty);
         confirmPassEmpty = this.getResources().getString(R.string.confirmPassEpty);
+        licenseEmpty = this.getResources().getString(R.string.licenseEmpty);
+        certificateEmpty = this.getResources().getString(R.string.certificateEmpty);
+        dobEmpty = this.getResources().getString(R.string.dobEmpty);
         passwordDontMatch = this.getResources().getString(R.string.passDontMatch);
         emailEmpty = this.getResources().getString(R.string.emailEmpty);
         passwordEmpty = this.getResources().getString(R.string.passwordEmpty);
@@ -141,14 +143,14 @@ public class SignInActivity extends AppCompatActivity {
         txt_register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (txt_register.getText().toString().startsWith(newUser)) {
+                if (layout_signIn.getVisibility() == View.VISIBLE) {
                     // If user want's to register
                     layout_signIn.setVisibility(View.GONE);
                     layout_register.setVisibility(View.VISIBLE);
                     txt_register.setText(Html.fromHtml(oldUser + boldLogin));
 
 
-                } else if (txt_register.getText().toString().startsWith(oldUser)) {
+                } else if (layout_register.getVisibility() == View.VISIBLE) {
                     // If user wants to log in
                     layout_register.setVisibility(View.GONE);
                     layout_signIn.setVisibility(View.VISIBLE);
@@ -200,6 +202,9 @@ public class SignInActivity extends AppCompatActivity {
         // Get input
         final String firstName = edit_firstName.getText().toString();
         final String lastName = edit_lastName.getText().toString();
+        final String certificate = edit_certificate.getText().toString();
+        final String license = edit_license.getText().toString();
+        final String dateOfBirth = edit_DOB.getText().toString();
         email = edit_email.getText().toString();
         password = edit_password.getText().toString();
         String confirmPassword = edit_confirmPass.getText().toString();
@@ -210,6 +215,15 @@ public class SignInActivity extends AppCompatActivity {
         } else if (lastName.isEmpty()) {
             Toast.makeText(SignInActivity.this, lastNameEmpty, Toast.LENGTH_SHORT).show();
 
+        } else if (certificate.isEmpty()) {
+            Toast.makeText(SignInActivity.this, certificateEmpty, Toast.LENGTH_SHORT).show();
+
+        } else if (license.isEmpty()) {
+            Toast.makeText(SignInActivity.this, licenseEmpty, Toast.LENGTH_SHORT).show();
+
+        } else if (dateOfBirth.isEmpty()) {
+            Toast.makeText(SignInActivity.this, dobEmpty, Toast.LENGTH_SHORT).show();
+
         } else if (email.isEmpty()) {
             Toast.makeText(SignInActivity.this, emailEmpty, Toast.LENGTH_SHORT).show();
 
@@ -218,6 +232,9 @@ public class SignInActivity extends AppCompatActivity {
 
         } else if (confirmPassword.isEmpty()) {
             Toast.makeText(SignInActivity.this, confirmPassEmpty, Toast.LENGTH_SHORT).show();
+
+        } else if (!dateOfBirth.matches("^[0-9][1-9]/[0-9][1-9]/[1-9]{4}")) {
+            Toast.makeText(SignInActivity.this, "not a valid date", Toast.LENGTH_SHORT).show();
 
         } else if (!password.equals(confirmPassword)) {
             Toast.makeText(SignInActivity.this, passwordDontMatch, Toast.LENGTH_SHORT).show();
@@ -239,8 +256,13 @@ public class SignInActivity extends AppCompatActivity {
                                 auth.getCurrentUser().updateProfile(profile).addOnCompleteListener(new OnCompleteListener<Void>() {
                                     @Override
                                     public void onComplete(@NonNull Task<Void> task) {
-                                        if(task.isSuccessful()){
+                                        if (task.isSuccessful()) {
                                             Log.d(TAG, "Displayname is set");
+
+                                            // Add new user to database and go to MainActivity
+                                            User user = new User(firstName, lastName, dateOfBirth, license, certificate, email);
+                                            addUserToDB(user, auth.getCurrentUser().getUid());
+
                                             Intent main = new Intent(SignInActivity.this, MainActivity.class);
                                             startActivity(main);
                                         }
@@ -341,5 +363,14 @@ public class SignInActivity extends AppCompatActivity {
             }
         }
         return -1;
+    }
+
+    // Adds user to database
+    private void addUserToDB(User user, String userId) {
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference reference = database.getReference("Users");
+
+        // With the firebaseUser Uid as key
+        reference.child(userId).setValue(user);
     }
 }
