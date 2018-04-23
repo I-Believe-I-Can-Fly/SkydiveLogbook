@@ -82,7 +82,7 @@ public class PageFragment extends Fragment {
             JUMP = getArguments().getInt(ARG_PARAM2);
         }
         this.mDatabase = FirebaseDatabase.getInstance();
-        this.myRef = mDatabase.getReference(userID);
+        this.myRef = mDatabase.getReference("Logs").child(userID);
 
         page = new LogbookPage();
 

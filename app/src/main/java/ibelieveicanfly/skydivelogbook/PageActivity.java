@@ -48,7 +48,7 @@ public class PageActivity extends AppCompatActivity {
         userID = auth.getCurrentUser().getUid();
 
         this.mDatabase = FirebaseDatabase.getInstance();
-        this.myRef = mDatabase.getReference(userID);
+        this.myRef = mDatabase.getReference("Logs").child(userID);
 
         loadPages();
 
