@@ -67,9 +67,9 @@ public class MainActivity extends AppCompatActivity {
             userID = auth.getCurrentUser().getUid();
             Log.d(TAG, userID);
             this.mDatabase = FirebaseDatabase.getInstance();
-            this.myRef = mDatabase.getReference(userID);
+            this.myRef = mDatabase.getReference("Logs");
 
-            getLogs();
+            getLogs(userID);
         } else {
             // User is not signed in
 
@@ -96,9 +96,9 @@ public class MainActivity extends AppCompatActivity {
      * retrieves log instances related to userID from database
      * adds instances to list
      */
-    private void getLogs(){
+    private void getLogs(String uID){
         // Read from the database
-        myRef.addValueEventListener(new ValueEventListener() {
+        myRef.child(uID).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 jumpList.clear();

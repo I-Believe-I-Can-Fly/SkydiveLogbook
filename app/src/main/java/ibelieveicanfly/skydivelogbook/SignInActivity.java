@@ -59,6 +59,8 @@ public class SignInActivity extends AppCompatActivity {
     private String boldLogin;
     private String forgottenPass;
     private String userNotExists;
+    private String notValidDate;
+    private String wrongLength;
     private RelativeLayout layout_signIn;
     private RelativeLayout layout_register;
     private RelativeLayout layout_resetPass;
@@ -132,6 +134,8 @@ public class SignInActivity extends AppCompatActivity {
         passwordDontMatch = this.getResources().getString(R.string.passDontMatch);
         emailEmpty = this.getResources().getString(R.string.emailEmpty);
         passwordEmpty = this.getResources().getString(R.string.passwordEmpty);
+        wrongLength = this.getResources().getString(R.string.licenseWrongLength);
+        notValidDate = this.getResources().getString(R.string.notValidDate);
         newUser = this.getResources().getString(R.string.newUser);
         oldUser = this.getResources().getString(R.string.existingUser);
         forgottenPass = this.getResources().getString(R.string.forgotPassword);
@@ -233,8 +237,11 @@ public class SignInActivity extends AppCompatActivity {
         } else if (confirmPassword.isEmpty()) {
             Toast.makeText(SignInActivity.this, confirmPassEmpty, Toast.LENGTH_SHORT).show();
 
-        } else if (!dateOfBirth.matches("^[0-9][1-9]/[0-9][1-9]/[1-9]{4}")) {
-            Toast.makeText(SignInActivity.this, "not a valid date", Toast.LENGTH_SHORT).show();
+        } else if (license.length() != 6) {
+            Toast.makeText(SignInActivity.this, wrongLength, Toast.LENGTH_SHORT).show();
+
+        } else if (!dateOfBirth.matches("^[0-9][1-9]/[0-9][1-9]/[1-2][0-9]{3}$")) {
+            Toast.makeText(SignInActivity.this, notValidDate, Toast.LENGTH_SHORT).show();
 
         } else if (!password.equals(confirmPassword)) {
             Toast.makeText(SignInActivity.this, passwordDontMatch, Toast.LENGTH_SHORT).show();
@@ -257,7 +264,7 @@ public class SignInActivity extends AppCompatActivity {
                                     @Override
                                     public void onComplete(@NonNull Task<Void> task) {
                                         if (task.isSuccessful()) {
-                                            Log.d(TAG, "Displayname is set");
+                                            Log.d(TAG, "DisplayName is set");
 
                                             // Add new user to database and go to MainActivity
                                             User user = new User(firstName, lastName, dateOfBirth, license, certificate, email);

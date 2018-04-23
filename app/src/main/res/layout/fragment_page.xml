@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -120,13 +118,33 @@
         app:layout_constraintTop_toBottomOf="@+id/page_canopyAlt" />
 
     <EditText
+        android:id="@+id/page_jumpNr"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:ems="10"
+        android:hint="@string/jumpNumberHint"
+        android:imeOptions="actionNext"
+        android:inputType="textPersonName"
+        android:nextFocusRight="@+id/page_date"
+        app:layout_constraintBottom_toTopOf="@+id/textView11"
+        app:layout_constraintEnd_toStartOf="@+id/page_date"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView12">
+
+        <requestFocus />
+    </EditText>
+
+    <EditText
         android:id="@+id/page_date"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
         android:ems="10"
         android:hint="@string/dateHint"
+        android:imeOptions="actionNext"
         android:inputType="date"
+        android:nextFocusDown="@+id/page_DZ"
         app:layout_constraintBottom_toTopOf="@+id/textView10"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/page_jumpNr"
@@ -139,24 +157,13 @@
         android:layout_marginStart="16dp"
         android:ems="10"
         android:hint="@string/dropzoneHint"
+        android:imeOptions="actionNext"
         android:inputType="textPersonName"
+        android:nextFocusRight="@+id/page_plane"
         app:layout_constraintBottom_toTopOf="@+id/textView13"
         app:layout_constraintEnd_toStartOf="@+id/page_plane"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView11" />
-
-    <EditText
-        android:id="@+id/page_jumpNr"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:ems="10"
-        android:hint="@string/jumpNumberHint"
-        android:inputType="textPersonName"
-        app:layout_constraintBottom_toTopOf="@+id/textView11"
-        app:layout_constraintEnd_toStartOf="@+id/page_date"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView12" />
 
     <EditText
         android:id="@+id/page_plane"
@@ -165,7 +172,9 @@
         android:layout_marginEnd="16dp"
         android:ems="10"
         android:hint="@string/planeHint"
+        android:imeOptions="actionNext"
         android:inputType="textPersonName"
+        android:nextFocusDown="@+id/page_equipment"
         app:layout_constraintBottom_toTopOf="@+id/textView14"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/page_DZ"
@@ -178,7 +187,9 @@
         android:layout_marginStart="16dp"
         android:ems="10"
         android:hint="@string/equipmentHint"
+        android:imeOptions="actionNext"
         android:inputType="textPersonName"
+        android:nextFocusRight="@+id/page_exitAlt"
         app:layout_constraintEnd_toStartOf="@+id/page_exitAlt"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView13" />
@@ -190,11 +201,43 @@
         android:layout_marginEnd="16dp"
         android:ems="10"
         android:hint="@string/exitAltitudeHint"
+        android:imeOptions="actionNext"
         android:inputType="textPersonName"
+        android:nextFocusDown="@+id/page_freefallTime"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/page_equipment"
         app:layout_constraintTop_toBottomOf="@+id/textView14" />
+
+    <EditText
+        android:id="@+id/page_freefallTime"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:ems="10"
+        android:hint="@string/freefallTimeHint"
+        android:imeOptions="actionNext"
+        android:inputType="textPersonName"
+        android:nextFocusRight="@+id/page_canopyAlt"
+        app:layout_constraintBottom_toTopOf="@+id/textView15"
+        app:layout_constraintEnd_toStartOf="@+id/page_canopyAlt"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView22" />
+
+    <EditText
+        android:id="@+id/page_canopyAlt"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:ems="10"
+        android:hint="@string/CanopyAltHint"
+        android:imeOptions="actionNext"
+        android:inputType="textPersonName"
+        android:nextFocusDown="@+id/page_comments"
+        app:layout_constraintBottom_toTopOf="@+id/textView15"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/page_freefallTime"
+        app:layout_constraintTop_toBottomOf="@+id/textView21" />
 
     <EditText
         android:id="@+id/page_comments"
@@ -211,39 +254,12 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView15" />
 
-    <EditText
-        android:id="@+id/page_canopyAlt"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:ems="10"
-        android:hint="@string/CanopyAltHint"
-        android:inputType="textPersonName"
-        app:layout_constraintBottom_toTopOf="@+id/textView15"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/page_freefallTime"
-        app:layout_constraintTop_toBottomOf="@+id/textView21" />
-
-    <EditText
-        android:id="@+id/page_freefallTime"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:ems="10"
-        android:hint="@string/freefallTimeHint"
-        android:inputType="textPersonName"
-        app:layout_constraintBottom_toTopOf="@+id/textView15"
-        app:layout_constraintEnd_toStartOf="@+id/page_canopyAlt"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView22" />
-
     <TextView
         android:id="@+id/page_signed"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginEnd="16dp"
         android:layout_marginStart="16dp"
-        android:text="Signed by tittymeister numero unoi D#1337"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
