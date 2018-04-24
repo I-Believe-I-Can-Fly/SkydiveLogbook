@@ -52,6 +52,8 @@
     <!-- sup -->
     <string name="approved">Approved</string>
     <string name="notApproved">Waiting</string>
+    <string name="Signature">Signature</string>
+    <string name="pickSignature">Pick User to sign jump</string>
 
     <string name="license">License Number</string>
     <string name="certificate">Certificate Letter</string>
