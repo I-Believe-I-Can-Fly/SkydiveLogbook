@@ -14,8 +14,16 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 public class CreatePageActivity extends AppCompatActivity {
 
@@ -53,19 +61,17 @@ public class CreatePageActivity extends AppCompatActivity {
         mComments = (EditText) findViewById(R.id.page_comments);
         mSignature = (TextView) findViewById(R.id.page_signed);
 
-        // TODO: Auto complete most of the inputs
-
-
         auth = FirebaseAuth.getInstance();
+
         //retrieve userid
         if (auth.getCurrentUser() != null) {
             userID = auth.getCurrentUser().getUid();
         }
 
-
         this.mDatabase = FirebaseDatabase.getInstance();
-        //    this.myRef = mDatabase.getReference(userID);
         this.myRef = mDatabase.getReference("Logs");
+
+        getUser();
     }
 
     /**
@@ -112,7 +118,7 @@ public class CreatePageActivity extends AppCompatActivity {
         }
     }
 
-    public void SignRequest(View v){
+    public void SignRequest(View v) {
         Intent intent = new Intent(this, SignatureRequest.class);
         startActivityForResult(intent, 1);
     }
@@ -120,7 +126,7 @@ public class CreatePageActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == 1) {
-            if(resultCode == Activity.RESULT_OK){
+            if (resultCode == Activity.RESULT_OK) {
                 //Get text from A3
                 String SignatureUserID = data.getStringExtra("SignUser_id");
                 String SignatureUserTxt = data.getStringExtra("SignUser_text");
@@ -164,7 +170,10 @@ public class CreatePageActivity extends AppCompatActivity {
         if (TextUtils.isEmpty(mCanopy.getText())) {
             filled = false;
         }
-        if(TextUtils.isEmpty(mSignatureUserID)){
+        if (TextUtils.isEmpty(mSignatureUserID)) {
+            filled = false;
+        }
+        if (!mDate.getText().toString().matches("^[0-9][1-9]/[0-9][1-9]/[1-2][0-9]{3}$")) {
             filled = false;
         }
 
@@ -185,6 +194,59 @@ public class CreatePageActivity extends AppCompatActivity {
             Toast.makeText(getApplicationContext(), "Required fields not filled", Toast.LENGTH_SHORT).show();
         }
         return null;
+    }
+
+    private void getUser() {
+        DatabaseReference usersRef = FirebaseDatabase.getInstance().getReference("Users");
+        DatabaseReference ref = usersRef.child(auth.getCurrentUser().getUid());
+
+
+        ref.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot users) {
+                autoComplete(users.getValue(User.class));
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                // Failed to get current user
+            }
+        });
+    }
+
+    private void autoComplete(User user) {
+        // TODO: Auto complete jumpNr
+        // TODO: Get info about last log
+
+        // Get date
+        DateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+        Date date = new Date();
+
+        // Set date
+        mDate.setText(sdf.format(date));
+
+        // mJumpNr.setText();
+
+        if (user != null) {
+            if (user.dropZone != null) {
+                mDz.setText(user.dropZone);
+            }
+            if (user.plane != null) {
+                mPlane.setText(user.plane);
+            }
+            if (user.equipment != null) {
+                mEquipment.setText(user.equipment);
+            }
+            if (user.exitAlt != null) {
+                mExit.setText(user.exitAlt);
+            }
+            if (user.canopyAlt != null) {
+                mCanopy.setText(user.canopyAlt);
+            }
+            if (user.freefall != null) {
+                mFreefall.setText(user.freefall);
+            }
+        }
     }
 
     private void savePageToFirebase(LogbookPage logbookPage) {

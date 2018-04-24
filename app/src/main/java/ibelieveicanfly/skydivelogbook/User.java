@@ -8,6 +8,12 @@ public class User {
     public String email;
     public String dateOfBirth;
     public String userID;
+    public String dropZone;
+    public String plane;
+    public String equipment;
+    public String exitAlt;
+    public String freefall;
+    public String canopyAlt;
 
 
     public User() {
@@ -22,6 +28,21 @@ public class User {
         this.certificate = certificate;
         this.email = email;
         this.userID = userID;
+        this.dropZone = null;
+        this.plane = null;
+        this.equipment = null;
+        this.exitAlt = null;
+        this.freefall = null;
+        this.canopyAlt = null;
+    }
+
+    public void updatePrefs(String dropZone, String plane, String equipment, String exitAlt, String freefall, String canopyAlt){
+        this.dropZone = dropZone;
+        this.plane = plane;
+        this.equipment = equipment;
+        this.exitAlt = exitAlt;
+        this.freefall = freefall;
+        this.canopyAlt = canopyAlt;
     }
 
     public String getCertificate() {
