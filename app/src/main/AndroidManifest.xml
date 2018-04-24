@@ -17,9 +17,13 @@
             </intent-filter>
         </activity>
         <activity android:name=".SignInActivity" />
-        <activity android:name=".PageActivity" />
-        <activity android:name=".CreatePageActivity" />
-        <activity android:name=".SignatureRequest"></activity>
+        <activity android:name=".PageActivity"
+            android:parentActivityName=".MainActivity"/>
+        <activity android:name=".CreatePageActivity"
+            android:parentActivityName=".MainActivity"/>
+        <activity android:name=".SignatureRequest"
+            android:parentActivityName=".CreatePageActivity"/>
+        <activity android:name=".UserProfileActivity"/>
     </application>
 
 </manifest>
