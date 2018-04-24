@@ -1,5 +1,6 @@
 package ibelieveicanfly.skydivelogbook;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -7,6 +8,7 @@ import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -27,6 +29,7 @@ public class CreatePageActivity extends AppCompatActivity {
     private EditText mCanopy;
     private EditText mComments;
     private TextView mSignature;
+    private String mSignatureUserID;
     private boolean mApproved = false;
 
     private FirebaseDatabase mDatabase;
@@ -109,6 +112,29 @@ public class CreatePageActivity extends AppCompatActivity {
         }
     }
 
+    public void SignRequest(View v){
+        Intent intent = new Intent(this, SignatureRequest.class);
+        startActivityForResult(intent, 1);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == 1) {
+            if(resultCode == Activity.RESULT_OK){
+                //Get text from A3
+                String SignatureUserID = data.getStringExtra("SignUser_id");
+                String SignatureUserTxt = data.getStringExtra("SignUser_text");
+
+                this.mSignatureUserID = SignatureUserID;
+
+                mSignature.setText(SignatureUserTxt);
+            }
+            if (resultCode == Activity.RESULT_CANCELED) {
+                //rip?
+            }
+        }
+    }
+
     private LogbookPage getDataFromLogbook() {
         // TODO: Make it more useful
         //'atomic'-wannabe variable to make sure fields are filled
@@ -136,6 +162,9 @@ public class CreatePageActivity extends AppCompatActivity {
             filled = false;
         }
         if (TextUtils.isEmpty(mCanopy.getText())) {
+            filled = false;
+        }
+        if(TextUtils.isEmpty(mSignatureUserID)){
             filled = false;
         }
 
