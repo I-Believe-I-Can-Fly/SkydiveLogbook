@@ -82,7 +82,7 @@ public class PageFragment extends Fragment {
             JUMP = getArguments().getInt(ARG_PARAM2);
         }
         this.mDatabase = FirebaseDatabase.getInstance();
-        this.myRef = mDatabase.getReference(userID);
+        this.myRef = mDatabase.getReference("Logs").child(userID);
 
         page = new LogbookPage();
 
@@ -130,7 +130,7 @@ public class PageFragment extends Fragment {
         mFreefall.setText(page.getFreefall());
         mCanopy.setText(page.getCanopy());
         mComments.setText(page.getComments());
-        mSignature.setText("Johan er mæd c00l");
+        mSignature.setText("Johan er mæd loser");
     }
 
     private void pageInfo() {

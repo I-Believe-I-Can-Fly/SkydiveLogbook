@@ -1,8 +1,8 @@
 package ibelieveicanfly.skydivelogbook;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -39,30 +39,35 @@ public class CreatePageActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_page);
 
-        mJumpNr = (EditText)findViewById(R.id.page_jumpNr);
-        mDate = (EditText)findViewById(R.id.page_date);
-        mDz = (EditText)findViewById(R.id.page_DZ);
-        mPlane = (EditText)findViewById(R.id.page_plane);
-        mEquipment = (EditText)findViewById(R.id.page_equipment);
-        mExit = (EditText)findViewById(R.id.page_exitAlt);
-        mFreefall = (EditText)findViewById(R.id.page_freefallTime);
-        mCanopy = (EditText)findViewById(R.id.page_canopyAlt);
-        mComments = (EditText)findViewById(R.id.page_comments);
-        mSignature = (TextView)findViewById(R.id.page_signed);
+        mJumpNr = (EditText) findViewById(R.id.page_jumpNr);
+        mDate = (EditText) findViewById(R.id.page_date);
+        mDz = (EditText) findViewById(R.id.page_DZ);
+        mPlane = (EditText) findViewById(R.id.page_plane);
+        mEquipment = (EditText) findViewById(R.id.page_equipment);
+        mExit = (EditText) findViewById(R.id.page_exitAlt);
+        mFreefall = (EditText) findViewById(R.id.page_freefallTime);
+        mCanopy = (EditText) findViewById(R.id.page_canopyAlt);
+        mComments = (EditText) findViewById(R.id.page_comments);
+        mSignature = (TextView) findViewById(R.id.page_signed);
 
         // TODO: Auto complete most of the inputs
 
 
         auth = FirebaseAuth.getInstance();
         //retrieve userid
-        userID = auth.getCurrentUser().getUid();
+        if (auth.getCurrentUser() != null) {
+            userID = auth.getCurrentUser().getUid();
+        }
+
 
         this.mDatabase = FirebaseDatabase.getInstance();
-        this.myRef = mDatabase.getReference(userID);
+        //    this.myRef = mDatabase.getReference(userID);
+        this.myRef = mDatabase.getReference("Logs");
     }
 
     /**
      * Adds button to action bar
+     *
      * @param menu
      * @return
      */
@@ -75,6 +80,7 @@ public class CreatePageActivity extends AppCompatActivity {
 
     /**
      * Adds event to button
+     *
      * @param item
      * @return
      */
@@ -84,7 +90,7 @@ public class CreatePageActivity extends AppCompatActivity {
             case R.id.action_done:
 
                 LogbookPage logbookPage = getDataFromLogbook();
-                if(logbookPage != null){
+                if (logbookPage != null) {
                     savePageToFirebase(logbookPage);
 
                     Intent intent = new Intent(this, MainActivity.class);
@@ -103,37 +109,37 @@ public class CreatePageActivity extends AppCompatActivity {
         }
     }
 
-    private LogbookPage getDataFromLogbook(){
+    private LogbookPage getDataFromLogbook() {
         // TODO: Make it more useful
         //'atomic'-wannabe variable to make sure fields are filled
         boolean filled = true;
 
-        if(TextUtils.isEmpty(mJumpNr.getText())){
+        if (TextUtils.isEmpty(mJumpNr.getText())) {
             filled = false;
         }
-        if(TextUtils.isEmpty(mDate.getText())){
+        if (TextUtils.isEmpty(mDate.getText())) {
             filled = false;
         }
-        if(TextUtils.isEmpty(mDz.getText())){
+        if (TextUtils.isEmpty(mDz.getText())) {
             filled = false;
         }
-        if(TextUtils.isEmpty(mPlane.getText())){
+        if (TextUtils.isEmpty(mPlane.getText())) {
             filled = false;
         }
-        if(TextUtils.isEmpty(mEquipment.getText())){
+        if (TextUtils.isEmpty(mEquipment.getText())) {
             filled = false;
         }
-        if(TextUtils.isEmpty(mExit.getText())){
+        if (TextUtils.isEmpty(mExit.getText())) {
             filled = false;
         }
-        if(TextUtils.isEmpty(mFreefall.getText())){
+        if (TextUtils.isEmpty(mFreefall.getText())) {
             filled = false;
         }
-        if(TextUtils.isEmpty(mCanopy.getText())){
+        if (TextUtils.isEmpty(mCanopy.getText())) {
             filled = false;
         }
 
-        if(filled) {
+        if (filled) {
             return new LogbookPage(
                     Integer.parseInt(mJumpNr.getText().toString()),
                     mDate.getText().toString(),
@@ -146,14 +152,15 @@ public class CreatePageActivity extends AppCompatActivity {
                     mComments.getText().toString(),
                     mApproved
             );
-        }else{
+        } else {
             Toast.makeText(getApplicationContext(), "Required fields not filled", Toast.LENGTH_SHORT).show();
         }
         return null;
     }
 
-    private void savePageToFirebase(LogbookPage logbookPage){
-        String userId = myRef.push().getKey();
-        myRef.child(userId).setValue(logbookPage);
+    private void savePageToFirebase(LogbookPage logbookPage) {
+
+        String key = myRef.push().getKey();
+        myRef.child(userID).child(key).setValue(logbookPage);
     }
 }
