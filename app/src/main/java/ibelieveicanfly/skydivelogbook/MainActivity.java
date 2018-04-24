@@ -54,6 +54,14 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, CreatePageActivity.class);
+                startActivity(intent);
+            }
+        });
+
 
         refreshListAdapter();
     }
@@ -115,6 +123,11 @@ public class MainActivity extends AppCompatActivity {
                 // rip
             }
         });
+    }
+
+    public void toUserProfile(View view) {
+        Intent intent = new Intent(MainActivity.this, UserProfileActivity.class);
+        startActivity(intent);
     }
 
 }
