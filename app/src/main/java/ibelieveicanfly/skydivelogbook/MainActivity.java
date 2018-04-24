@@ -37,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         auth = FirebaseAuth.getInstance();
+        // auth.signOut();
         userStatus(auth.getCurrentUser());
 
         this.recyclerView = (RecyclerView) this.findViewById(R.id.recyclerView);
@@ -104,13 +105,13 @@ public class MainActivity extends AppCompatActivity {
      * retrieves log instances related to userID from database
      * adds instances to list
      */
-    private void getLogs(String uID){
+    private void getLogs(String uID) {
         // Read from the database
         myRef.child(uID).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 jumpList.clear();
-                for(DataSnapshot child: dataSnapshot.getChildren()) {
+                for (DataSnapshot child : dataSnapshot.getChildren()) {
                     LogbookPage logbookPage = child.getValue(LogbookPage.class);
                     jumpList.add(logbookPage);
 

@@ -7,7 +7,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
 import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -266,10 +265,11 @@ public class SignInActivity extends AppCompatActivity {
                                     public void onComplete(@NonNull Task<Void> task) {
                                         if (task.isSuccessful()) {
                                             Log.d(TAG, "DisplayName is set");
+                                            String userID = auth.getCurrentUser().getUid();
 
                                             // Add new user to database and go to MainActivity
-                                            User user = new User(firstName, lastName, dateOfBirth, license, certificate, email);
-                                            addUserToDB(user, auth.getCurrentUser().getUid());
+                                            User user = new User(firstName, lastName, dateOfBirth, license, certificate, email, userID);
+                                            addUserToDB(user, userID);
 
                                             Intent main = new Intent(SignInActivity.this, MainActivity.class);
                                             startActivity(main);
