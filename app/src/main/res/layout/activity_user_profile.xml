@@ -43,6 +43,25 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@android:drawable/ic_menu_edit" />
 
+    <ImageButton
+        android:id="@+id/confirmEdit"
+        android:layout_width="42dp"
+        android:layout_height="42dp"
+        android:background="@android:color/transparent"
+        android:tint="@android:color/darker_gray"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@android:drawable/stat_notify_sdcard" />
+
+    <ImageButton
+        android:id="@+id/cancelEdit"
+        android:layout_width="42dp"
+        android:layout_height="42dp"
+        android:background="@android:color/transparent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@android:drawable/ic_menu_close_clear_cancel" />
+
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="333dp"
@@ -96,7 +115,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="center"
-                    android:text="NA"
+                    android:text="  -"
                     android:layout_marginLeft="10dp"
                     android:textAlignment="textStart"
                     android:textColor="@android:color/black"
@@ -147,7 +166,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="center"
-                    android:text="NA"
+                    android:text="  -"
                     android:layout_marginLeft="10dp"
                     android:textAlignment="textStart"
                     android:textColor="@android:color/black"
@@ -198,7 +217,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="center"
-                    android:text="NA"
+                    android:text="  -"
                     android:layout_marginLeft="10dp"
                     android:textAlignment="textStart"
                     android:textColor="@android:color/black"
@@ -209,7 +228,7 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/licenseBoth"
+            android:id="@+id/certificateBoth"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="right"
@@ -217,7 +236,7 @@
             android:orientation="horizontal">
 
             <LinearLayout
-                android:id="@+id/licenseLeft"
+                android:id="@+id/certificateLeft"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -225,11 +244,11 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/licenseText"
+                    android:id="@+id/certificateText"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="center"
-                    android:text="LICENSE"
+                    android:text="CERTIFICATE"
                     android:layout_marginRight="10dp"
                     android:textAlignment="textEnd"
                     android:textColor="@android:color/black"
@@ -238,18 +257,18 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/licenseRight"
+                android:id="@+id/certificateRight"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/license"
+                    android:id="@+id/certificate"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="center"
-                    android:text="NA"
+                    android:text="  -"
                     android:layout_marginLeft="10dp"
                     android:textAlignment="textStart"
                     android:textColor="@android:color/black"
@@ -300,7 +319,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="center"
-                    android:text="NA"
+                    android:text="  -"
                     android:layout_marginLeft="10dp"
                     android:textAlignment="textStart"
                     android:textColor="@android:color/black"
@@ -313,4 +332,5 @@
 
 
     </LinearLayout>
+
 </android.support.constraint.ConstraintLayout>
