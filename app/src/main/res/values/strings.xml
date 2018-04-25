@@ -63,4 +63,12 @@
     <string name="dobEmpty">Error: Date of birth can not be empty!</string>
     <string name="licenseWrongLength">Error: License is not correct length!</string>
     <string name="notValidDate">Error: Not valid date!</string>
+
+    <string-array name="certificateEditString">
+        <item>Elev</item>
+        <item>A</item>
+        <item>B</item>
+        <item>C</item>
+        <item>D</item>
+    </string-array>
 </resources>
