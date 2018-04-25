@@ -113,7 +113,7 @@ public class UserProfileActivity extends AppCompatActivity {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (hasFocus) {
-                    DateDialog dialog = new DateDialog(v);
+                    DateDialog dialog = new DateDialog(v, tempUser.dateOfBirth);
                     FragmentTransaction ft = getFragmentManager().beginTransaction();
                     dialog.show(ft, "DatePicker");
                 }
