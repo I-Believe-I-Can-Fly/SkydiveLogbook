@@ -143,10 +143,10 @@ public class UserProfileActivity extends AppCompatActivity {
 
         name.setText(user.firstName + " " + user.lastName);
         age.setText(calculateAge(user) + " (" + user.dateOfBirth +")");
-        if (!user.yearsInSport.equals("")) yis.setText(user.yearsInSport);
-        if (!user.totalJumps.equals("")) jumps.setText(user.totalJumps);
+        if (!user.yearsInSport.equals("") || user.yearsInSport != null) yis.setText(user.yearsInSport);
+        if (!user.totalJumps.equals("") || user.totalJumps != null) jumps.setText(user.totalJumps);
         certificate.setText(user.certificate);
-        if (!user.primaryDropzone.equals("")) dropzone.setText((user.primaryDropzone));
+        if (!user.primaryDropzone.equals("") || user.primaryDropzone != null) dropzone.setText((user.primaryDropzone));
 
         if (user.userID.equals(auth.getCurrentUser().getUid())) {
             edit.setVisibility(View.VISIBLE);
