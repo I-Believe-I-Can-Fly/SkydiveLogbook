@@ -124,10 +124,7 @@ public class CreatePageActivity extends AppCompatActivity {
                     startActivity(intent);
                     return true;
                 }
-
-                Intent intent = new Intent(this, CreatePageActivity.class);
-                startActivity(intent);
-                return true;
+                
             default:
                 // If we got here, the user's action was not recognized.
                 // Invoke the superclass to handle it.
