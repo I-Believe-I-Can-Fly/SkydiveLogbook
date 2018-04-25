@@ -64,8 +64,8 @@ public class MainActivity extends AppCompatActivity {
         });
         floatingActionButton2.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                //TODO something when floating action menu second item clicked
-
+                Intent intent = new Intent(MainActivity.this, EvaluateRequestActivity.class);
+                startActivity(intent);
             }
         });
 

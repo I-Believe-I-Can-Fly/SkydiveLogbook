@@ -46,6 +46,7 @@ public class CreatePageActivity extends AppCompatActivity {
     private DatabaseReference myRef2;
     private FirebaseAuth auth;
     private String userID;
+    private String mUsernameTxt;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -124,7 +125,7 @@ public class CreatePageActivity extends AppCompatActivity {
                     startActivity(intent);
                     return true;
                 }
-                
+
             default:
                 // If we got here, the user's action was not recognized.
                 // Invoke the superclass to handle it.
@@ -147,6 +148,7 @@ public class CreatePageActivity extends AppCompatActivity {
                 String SignatureUserTxt = data.getStringExtra("SignUser_text");
 
                 this.mSignatureUserID = SignatureUserID;
+                this.mUsernameTxt = SignatureUserTxt;
 
                 mSignature.setText(SignatureUserTxt);
             }
@@ -275,7 +277,7 @@ public class CreatePageActivity extends AppCompatActivity {
     }
 
     private void createSignatureRequest(String User, String Signer, String JumpNr){
-        Request request = new Request(User, Signer, JumpNr);
+        Request request = new Request(User, Signer, JumpNr, mUsernameTxt);
 
         String key = myRef2.push().getKey();
         myRef2.child(key).setValue(request);
