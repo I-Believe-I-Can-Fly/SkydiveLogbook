@@ -96,6 +96,7 @@ public class SignatureRequest extends AppCompatActivity {
             String text2 = user.getCertificate()+"#"+user.getLicence();
             holder.nameTxt.setText(text1);
             holder.licenseTxt.setText(text2);
+            holder.SignatureUserID = user.getUserID();
         }
 
         @Override
@@ -125,7 +126,7 @@ public class SignatureRequest extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), CreatePageActivity.class);
                 // TODO: endre 'extraen' under til userID
-                intent.putExtra("SignUser_id", nameTxt.getText().toString()); // Dette burde vært userID'en til brukeren
+                intent.putExtra("SignUser_id", SignatureUserID); // Dette burde vært userID'en til brukeren
                 intent.putExtra("SignUser_text", nameTxt.getText().toString()+" "+licenseTxt.getText().toString());
                 setResult(Activity.RESULT_OK, intent);
                 finish();

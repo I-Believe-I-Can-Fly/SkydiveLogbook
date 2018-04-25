@@ -105,7 +105,7 @@ public class PageFragment extends Fragment {
         mFreefall.setText(page.getFreefall());
         mCanopy.setText(page.getCanopy());
         mComments.setText(page.getComments());
-        mSignature.setText("Brede er mæd loser");
+        mSignature.setText(page.getSignature());
     }
 
     private void pageInfo() {

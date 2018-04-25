@@ -5,17 +5,17 @@ import com.google.firebase.database.IgnoreExtraProperties;
 @IgnoreExtraProperties
 public class LogbookPage {
 
-    public Integer jumpNr = 0;
-    public String date;
-    public String dz;
-    public String plane;
-    public String equipment;
-    public String exit;
-    public String freefall;
-    public String canopy;
-    public String comments;
-    public String signature;
-    public boolean approved;
+    private Integer jumpNr = 0;
+    private String date;
+    private String dz;
+    private String plane;
+    private String equipment;
+    private String exit;
+    private String freefall;
+    private String canopy;
+    private String comments;
+    private String signature;
+    private boolean approved;
 
     public LogbookPage() {
 
@@ -30,7 +30,7 @@ public class LogbookPage {
                        String freefall,
                        String canopy,
                        String comments,
-                       //String signature,
+                       String signature,
                        boolean approved) {
         this.jumpNr = jumpNr;
         this.date = date;
@@ -41,7 +41,7 @@ public class LogbookPage {
         this.freefall = freefall;
         this.canopy = canopy;
         this.comments = comments;
-       // this.signature = signature;
+        this.signature = signature;
         this.approved = false;
     }
 
@@ -133,19 +133,4 @@ public class LogbookPage {
         this.approved = approved;
     }
 
-    /*
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeInt(jumpNr);
-        dest.writeString(date);
-        dest.writeString(dz);
-        dest.writeString(plane);
-        dest.writeString(equipment);
-        dest.writeString(exit);
-        dest.writeString(freefall);
-        dest.writeString(canopy);
-        dest.writeString(comments);
-        dest.writeString(signature);
-        dest.writeBooleanArray(approved);
-    }*/
 }

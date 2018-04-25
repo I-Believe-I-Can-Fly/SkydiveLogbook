@@ -7,6 +7,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -126,9 +129,36 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    public void toUserProfile(View view) {
-        Intent intent = new Intent(MainActivity.this, UserProfileActivity.class);
-        startActivity(intent);
+    /**
+     * Adds button to action bar
+     *
+     * @param menu
+     * @return
+     */
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.action_profile, menu);
+        return true;
     }
 
+    /**
+     * Adds event to button
+     *
+     * @param item
+     * @return
+     */
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_profile:
+                Intent intent = new Intent(this, UserProfileActivity.class);
+                startActivity(intent);
+                return true;
+            default:
+                //rip
+                return super.onOptionsItemSelected(item);
+
+        }
+    }
 }

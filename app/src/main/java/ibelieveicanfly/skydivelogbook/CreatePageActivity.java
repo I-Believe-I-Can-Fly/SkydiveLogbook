@@ -42,6 +42,7 @@ public class CreatePageActivity extends AppCompatActivity {
 
     private FirebaseDatabase mDatabase;
     private DatabaseReference myRef;
+    private DatabaseReference myRef2;
     private FirebaseAuth auth;
     private String userID;
 
@@ -70,6 +71,7 @@ public class CreatePageActivity extends AppCompatActivity {
 
         this.mDatabase = FirebaseDatabase.getInstance();
         this.myRef = mDatabase.getReference("Logs");
+        this.myRef2 = mDatabase.getReference("Requests");
 
         getUser();
     }
@@ -101,6 +103,7 @@ public class CreatePageActivity extends AppCompatActivity {
                 LogbookPage logbookPage = getDataFromLogbook();
                 if (logbookPage != null) {
                     savePageToFirebase(logbookPage);
+                    createSignatureRequest(userID, mSignatureUserID, mJumpNr.getText().toString());
 
                     Intent intent = new Intent(this, MainActivity.class);
                     startActivity(intent);
@@ -173,6 +176,9 @@ public class CreatePageActivity extends AppCompatActivity {
         if (TextUtils.isEmpty(mSignatureUserID)) {
             filled = false;
         }
+        if (TextUtils.isEmpty(mSignature.getText())){
+            filled = false;
+        }
         if (!mDate.getText().toString().matches("^[0-9][1-9]/[0-9][1-9]/[1-2][0-9]{3}$")) {
             filled = false;
         }
@@ -188,6 +194,7 @@ public class CreatePageActivity extends AppCompatActivity {
                     mFreefall.getText().toString(),
                     mCanopy.getText().toString(),
                     mComments.getText().toString(),
+                    mSignature.getText().toString(),
                     mApproved
             );
         } else {
@@ -253,5 +260,12 @@ public class CreatePageActivity extends AppCompatActivity {
 
         String key = myRef.push().getKey();
         myRef.child(userID).child(key).setValue(logbookPage);
+    }
+
+    private void createSignatureRequest(String User, String Signer, String JumpNr){
+        Request request = new Request(User, Signer, JumpNr);
+
+        String key = myRef2.push().getKey();
+        myRef2.child(key).setValue(request);
     }
 }
