@@ -38,9 +38,9 @@ public class User {
         this.exitAlt = null;
         this.freefall = null;
         this.canopyAlt = null;
-        this.yearsInSport = "";
-        this.totalJumps = "";
-        this.primaryDropzone = "";
+        this.yearsInSport = null;
+        this.totalJumps = null;
+        this.primaryDropzone = null;
     }
 
     public void updatePrefs(String dropZone, String plane, String equipment, String exitAlt, String freefall, String canopyAlt){
