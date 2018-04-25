@@ -23,7 +23,8 @@
             android:parentActivityName=".MainActivity"/>
         <activity android:name=".SignatureRequest"
             android:parentActivityName=".CreatePageActivity"/>
-        <activity android:name=".UserProfileActivity"/>
+        <activity android:name=".UserProfileActivity"
+            android:parentActivityName=".MainActivity"/>
     </application>
 
 </manifest>
