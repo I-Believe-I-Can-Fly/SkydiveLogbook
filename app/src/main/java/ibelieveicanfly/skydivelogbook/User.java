@@ -14,6 +14,10 @@ public class User {
     public String exitAlt;
     public String freefall;
     public String canopyAlt;
+    public String yearsInSport;
+    public String totalJumps;
+    public String primaryDropzone;
+
 
 
     public User() {
