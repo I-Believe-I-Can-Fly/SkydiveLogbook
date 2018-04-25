@@ -12,6 +12,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.github.clans.fab.FloatingActionMenu;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -30,6 +31,10 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseDatabase mDatabase;
     private DatabaseReference myRef;
 
+    private FloatingActionMenu floatingActionMenu;
+    private com.github.clans.fab.FloatingActionButton floatingActionButton1, floatingActionButton2;
+
+
     private ArrayList<LogbookPage> jumpList = new ArrayList<>();
 
     private String userID;
@@ -47,25 +52,22 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         adapter = new CustomAdapter(this);
 
-        //Floating action button for adding new pages to the logbook
-        FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setImageResource(R.drawable.ic_add_white_48dp); //adds the plus icon to the button
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        floatingActionMenu = (FloatingActionMenu) findViewById(R.id.material_design_android_floating_action_menu);
+        floatingActionButton1 = (com.github.clans.fab.FloatingActionButton) findViewById(R.id.material_design_floating_action_menu_item1);
+        floatingActionButton2 = (com.github.clans.fab.FloatingActionButton) findViewById(R.id.material_design_floating_action_menu_item2);
+
+        floatingActionButton1.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, CreatePageActivity.class);
                 startActivity(intent);
             }
         });
+        floatingActionButton2.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                //TODO something when floating action menu second item clicked
 
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, CreatePageActivity.class);
-                startActivity(intent);
             }
         });
-
 
         refreshListAdapter();
     }
