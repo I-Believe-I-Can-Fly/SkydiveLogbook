@@ -1,6 +1,7 @@
 package ibelieveicanfly.skydivelogbook;
 
 import android.app.Activity;
+import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -74,6 +75,20 @@ public class CreatePageActivity extends AppCompatActivity {
         this.myRef2 = mDatabase.getReference("Requests");
 
         getUser();
+    }
+
+    public void onStart() {
+        super.onStart();
+        mDate.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
+                    DateDialog dialog = new DateDialog(v, "-1/-1/-1");
+                    FragmentTransaction ft = getFragmentManager().beginTransaction();
+                    dialog.show(ft, "DatePicker");
+                }
+            }
+        });
     }
 
     /**
