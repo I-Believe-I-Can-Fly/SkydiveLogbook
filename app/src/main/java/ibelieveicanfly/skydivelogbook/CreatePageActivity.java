@@ -46,6 +46,7 @@ public class CreatePageActivity extends AppCompatActivity {
     private DatabaseReference myRef2;
     private FirebaseAuth auth;
     private String userID;
+    private String mUsernameTxt;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -125,9 +126,6 @@ public class CreatePageActivity extends AppCompatActivity {
                     return true;
                 }
 
-                Intent intent = new Intent(this, CreatePageActivity.class);
-                startActivity(intent);
-                return true;
             default:
                 // If we got here, the user's action was not recognized.
                 // Invoke the superclass to handle it.
@@ -226,7 +224,9 @@ public class CreatePageActivity extends AppCompatActivity {
         ref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot users) {
-                autoComplete(users.getValue(User.class));
+                User user = users.getValue(User.class);
+                mUsernameTxt = user.getFirstName() + " " + user.getLastName();
+                autoComplete(user);
             }
 
             @Override
@@ -278,9 +278,8 @@ public class CreatePageActivity extends AppCompatActivity {
     }
 
     private void createSignatureRequest(String User, String Signer, String JumpNr){
-        Request request = new Request(User, Signer, JumpNr);
-
         String key = myRef2.push().getKey();
+        Request request = new Request(User, Signer, JumpNr, mUsernameTxt, key);
         myRef2.child(key).setValue(request);
     }
 }

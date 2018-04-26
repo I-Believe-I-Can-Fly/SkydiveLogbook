@@ -14,10 +14,7 @@ import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.AppCompatTextView;
-import android.util.AttributeSet;
-import android.util.Log;
-import android.util.TypedValue;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.ArrayAdapter;
@@ -167,16 +164,15 @@ public class UserProfileActivity extends AppCompatActivity {
         updateImage();
 
         name.setText(user.firstName + " " + user.lastName);
-        age.setText(calculateAge(user) + " (" + user.dateOfBirth +")");
-        if (!user.yearsInSport.equals("") || user.yearsInSport != null) yis.setText(user.yearsInSport);
-        if (!user.totalJumps.equals("") || user.totalJumps != null) jumps.setText(user.totalJumps);
+        age.setText(calculateAge(user) + " (" + user.dateOfBirth + ")");
+        if (user.yearsInSport != null) yis.setText(user.yearsInSport);
+        if (user.totalJumps != null) jumps.setText(user.totalJumps);
         certificate.setText(user.certificate);
-        if (!user.primaryDropzone.equals("") || user.primaryDropzone != null) dropzone.setText((user.primaryDropzone));
+        if (user.primaryDropzone != null) dropzone.setText((user.primaryDropzone));
 
         if (user.userID.equals(auth.getCurrentUser().getUid())) {
             edit.setVisibility(View.VISIBLE);
-        }
-        else {
+        } else {
             edit.setVisibility(View.GONE);
         }
     }
@@ -238,8 +234,7 @@ public class UserProfileActivity extends AppCompatActivity {
             text.setVisibility(View.GONE);
             edit.setVisibility(View.VISIBLE);
             edit.setEnabled(true);
-        }
-        else {
+        } else {
             text.setVisibility(View.VISIBLE);
             edit.setVisibility(View.GONE);
             edit.setEnabled(false);
@@ -258,8 +253,7 @@ public class UserProfileActivity extends AppCompatActivity {
             certificate.setVisibility(View.GONE);
             certificateEdit.setVisibility(View.VISIBLE);
             this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
-        }
-        else {
+        } else {
             certificate.setVisibility(View.VISIBLE);
             certificateEdit.setVisibility(View.GONE);
         }
@@ -281,8 +275,7 @@ public class UserProfileActivity extends AppCompatActivity {
             long days = hours / 24;
             long years = days / 365;
             s = String.valueOf(years);
-        }
-        catch (ParseException e) {
+        } catch (ParseException e) {
             e.printStackTrace();
         }
         return s;
