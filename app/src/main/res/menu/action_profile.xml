@@ -11,7 +11,14 @@
 
     <item
         android:id="@+id/action_settings"
-        android:icon="@drawable/ic_settings_white_24dp"
+        android:orderInCategory="50"
         android:title="@string/settings"
-        app:showAsAction="ifRoom" />
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_logOut"
+        android:orderInCategory="100"
+        android:title="@string/logOut"
+        app:showAsAction="never"
+        />
 </menu>

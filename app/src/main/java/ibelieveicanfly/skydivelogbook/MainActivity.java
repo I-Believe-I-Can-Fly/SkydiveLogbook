@@ -179,6 +179,11 @@ public class MainActivity extends AppCompatActivity {
                 intent = new Intent(MainActivity.this, SettingsActivity.class);
                 startActivity(intent);
                 return true;
+            case R.id.action_logOut:
+                auth.signOut();
+                intent = new Intent(MainActivity.this, SignInActivity.class);
+                startActivity(intent);
+                return true;
             default:
                 //rip
                 return super.onOptionsItemSelected(item);
