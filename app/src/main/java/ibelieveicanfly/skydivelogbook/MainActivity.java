@@ -2,7 +2,6 @@ package ibelieveicanfly.skydivelogbook;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -12,6 +11,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.github.clans.fab.FloatingActionButton;
 import com.github.clans.fab.FloatingActionMenu;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
     private DatabaseReference myRef;
 
     private FloatingActionMenu floatingActionMenu;
-    private com.github.clans.fab.FloatingActionButton floatingActionButton1, floatingActionButton2;
+    private FloatingActionButton floatingActionButton1, floatingActionButton2;
 
 
     private ArrayList<LogbookPage> jumpList = new ArrayList<>();
@@ -53,8 +53,8 @@ public class MainActivity extends AppCompatActivity {
         adapter = new CustomAdapter(this);
 
         floatingActionMenu = (FloatingActionMenu) findViewById(R.id.material_design_android_floating_action_menu);
-        floatingActionButton1 = (com.github.clans.fab.FloatingActionButton) findViewById(R.id.material_design_floating_action_menu_item1);
-        floatingActionButton2 = (com.github.clans.fab.FloatingActionButton) findViewById(R.id.material_design_floating_action_menu_item2);
+        floatingActionButton1 = (FloatingActionButton) findViewById(R.id.material_design_floating_action_menu_item1);
+        floatingActionButton2 = (FloatingActionButton) findViewById(R.id.material_design_floating_action_menu_item2);
 
         floatingActionButton1.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {

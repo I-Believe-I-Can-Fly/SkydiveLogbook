@@ -101,7 +101,7 @@ public class EvaluateRequestActivity extends AppCompatActivity {
         public void onBindViewHolder(RequestAdapter.MyViewHolder holder, int position) {
             Request request = requests.get(position);
             String text1 = request.getUserName();
-            String text2 = request.getJumpNr();
+            String text2 = "Jump " + request.getJumpNr();
             holder.nameTxt.setText(text1);
             holder.jumpNr.setText(text2);
         }

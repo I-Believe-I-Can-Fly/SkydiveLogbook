@@ -148,7 +148,6 @@ public class CreatePageActivity extends AppCompatActivity {
                 String SignatureUserTxt = data.getStringExtra("SignUser_text");
 
                 this.mSignatureUserID = SignatureUserID;
-                this.mUsernameTxt = SignatureUserTxt;
 
                 mSignature.setText(SignatureUserTxt);
             }
@@ -225,7 +224,9 @@ public class CreatePageActivity extends AppCompatActivity {
         ref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot users) {
-                autoComplete(users.getValue(User.class));
+                User user = users.getValue(User.class);
+                mUsernameTxt = user.getFirstName() + " " + user.getLastName();
+                autoComplete(user);
             }
 
             @Override
