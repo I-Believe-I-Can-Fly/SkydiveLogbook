@@ -181,7 +181,7 @@ public class UserProfileActivity extends AppCompatActivity {
         ageEdit.setText(tempUser.dateOfBirth);
         yisEdit.setText(tempUser.yearsInSport);
         jumpsEdit.setText(tempUser.totalJumps);
-        if (tempUser.certificate.equals("Elev")) certificateEdit.setSelection(0);
+        if (tempUser.certificate.equals("Learner")) certificateEdit.setSelection(0);
         else if (tempUser.certificate.equals("A")) certificateEdit.setSelection(1);
         else if (tempUser.certificate.equals("B")) certificateEdit.setSelection(2);
         else if (tempUser.certificate.equals("C")) certificateEdit.setSelection(3);
@@ -218,7 +218,7 @@ public class UserProfileActivity extends AppCompatActivity {
         getFromDB();
 
         changedPic = false;
-        Toast.makeText(this, "Settings saved!", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, getString(R.string.settingsSaved), Toast.LENGTH_SHORT).show();
     }
 
     public void cancelClick(View view) {
@@ -311,7 +311,7 @@ public class UserProfileActivity extends AppCompatActivity {
     private void uploadImage() {
         if (filePath != null) {
             final ProgressDialog progressDialog = new ProgressDialog(this);
-            progressDialog.setTitle("Uploading picture");
+            progressDialog.setTitle(getString(R.string.uploading));
             progressDialog.show();
 
             StorageReference ref = storageReference.child("PP/"+ uid);
@@ -319,19 +319,19 @@ public class UserProfileActivity extends AppCompatActivity {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                     progressDialog.dismiss();
-                    Toast.makeText(UserProfileActivity.this, "Uploaded", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(UserProfileActivity.this, getString(R.string.uploaded), Toast.LENGTH_SHORT).show();
                 }
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
                 public void onFailure(@NonNull Exception e) {
                     progressDialog.dismiss();
-                    Toast.makeText(UserProfileActivity.this, "Upload failed", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(UserProfileActivity.this, getString(R.string.uploadFailed), Toast.LENGTH_SHORT).show();
                 }
             }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
                     double progress = (100.0 * taskSnapshot.getBytesTransferred()/taskSnapshot.getTotalByteCount());
-                    progressDialog.setMessage("Uploaded " + (int)progress + "%");
+                    progressDialog.setMessage(getString(R.string.uploadedProgress) + " " + (int)progress + "%");
                 }
             });
         }

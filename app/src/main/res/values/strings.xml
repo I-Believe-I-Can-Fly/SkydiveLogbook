@@ -48,6 +48,17 @@
     <string name="sendEmail">Send Email</string>
     <string name="resetPassword">Reset Password</string>
     <string name="emailSent">An email has been sent to your email address</string>
+    <string name="age">Age</string>
+    <string name="yearsInSport">Years in sport</string>
+    <string name="jumps">Jumps</string>
+    <string name="primaryDropzone">Primary Dropzone</string>
+    <string name="cert">Certificate</string>
+    <string name="uploading">Uploading picture</string>
+    <string name="uploadedProgress">Uploaded</string>
+    <string name="uploaded">Uploaded</string>
+    <string name="uploadFailed">Upload failed</string>
+    <string name="settingsSaved">Settings saved</string>
+    <string name="learner">Learner</string>
 
     <!-- sup -->
     <string name="approved">Approved</string>
@@ -63,9 +74,10 @@
     <string name="dobEmpty">Error: Date of birth can not be empty!</string>
     <string name="licenseWrongLength">Error: License is not correct length!</string>
     <string name="notValidDate">Error: Not valid date!</string>
+    <string name="invalidUser">Invalid user</string>
 
     <string-array name="certificateEditString">
-        <item>Elev</item>
+        <item>Learner</item>
         <item>A</item>
         <item>B</item>
         <item>C</item>
