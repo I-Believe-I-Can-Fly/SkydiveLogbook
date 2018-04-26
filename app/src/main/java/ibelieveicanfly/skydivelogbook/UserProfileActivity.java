@@ -1,10 +1,15 @@
 package ibelieveicanfly.skydivelogbook;
 
 import android.app.FragmentTransaction;
+import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Paint;
+import android.net.Uri;
+import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
 import android.support.v7.app.AppCompatActivity;
@@ -23,20 +28,29 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.OnProgressListener;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.UUID;
 
 public class UserProfileActivity extends AppCompatActivity {
 
-    private FirebaseAuth auth;
+    private ImageButton profilePicture;
     private TextView name;
     private TextView age;
     private TextView yis;
@@ -44,6 +58,7 @@ public class UserProfileActivity extends AppCompatActivity {
     private TextView certificate;
     private TextView dropzone;
 
+    private ImageView imageEdit;
     private ImageButton cancelEdit;
     private ImageButton confirmEdit;
     private ImageButton edit;
@@ -55,12 +70,22 @@ public class UserProfileActivity extends AppCompatActivity {
 
     private User tempUser;
     private String uid;
+    private Uri filePath;
+    private boolean changedPic = false;
+
+    private FirebaseAuth auth;
+    private FirebaseStorage storage;
+    private StorageReference storageReference;
+    private StorageReference storageReference2;
+
+    private final int PICK_IMAGE_REQUEST = 71;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_profile);
 
+        profilePicture = findViewById(R.id.profilePicture);
         name = findViewById(R.id.name);
         age = findViewById(R.id.age);
         yis = findViewById(R.id.yis);
@@ -68,6 +93,7 @@ public class UserProfileActivity extends AppCompatActivity {
         certificate = findViewById(R.id.certificate);
         dropzone = findViewById(R.id.dropzone);
 
+        imageEdit = findViewById(R.id.imageEdit);
         cancelEdit = findViewById(R.id.cancelEdit);
         confirmEdit = findViewById(R.id.confirmEdit);
         edit = findViewById(R.id.editButton);
@@ -77,6 +103,7 @@ public class UserProfileActivity extends AppCompatActivity {
         certificateEdit = findViewById(R.id.certificateEdit);
         dropzoneEdit = findViewById(R.id.dropzoneEdit);
 
+        imageEdit.setVisibility(View.GONE);
         cancelEdit.setVisibility(View.GONE);
         confirmEdit.setVisibility(View.GONE);
         ageEdit.setVisibility(View.GONE);
@@ -85,23 +112,19 @@ public class UserProfileActivity extends AppCompatActivity {
         certificateEdit.setVisibility(View.GONE);
         dropzoneEdit.setVisibility(View.GONE);
 
+        profilePicture.setClickable(false);
+
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
                 R.array.certificateEditString, android.R.layout.simple_spinner_item);
 
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         certificateEdit.setAdapter(adapter);
 
-/*
-        ImageView icon = findViewById(R.id.profilePicture);
-
-        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.common_google_signin_btn_icon_dark);
-
-        RoundedBitmapDrawable drawable = RoundedBitmapDrawableFactory.create(getResources(), bitmap);
-        drawable.setCircular(true);
-        icon.setImageDrawable(drawable);
-*/
         auth = FirebaseAuth.getInstance();
         uid = auth.getCurrentUser().getUid();
+
+        storage = FirebaseStorage.getInstance();
+        storageReference = storage.getReference();
 
         getFromDB();
 
@@ -140,6 +163,8 @@ public class UserProfileActivity extends AppCompatActivity {
 
     private void getUser(User user) {
         tempUser = user;
+
+        updateImage();
 
         name.setText(user.firstName + " " + user.lastName);
         age.setText(calculateAge(user) + " (" + user.dateOfBirth +")");
@@ -196,6 +221,7 @@ public class UserProfileActivity extends AppCompatActivity {
 
         getFromDB();
 
+        changedPic = false;
         Toast.makeText(this, "Settings saved!", Toast.LENGTH_SHORT).show();
     }
 
@@ -221,6 +247,10 @@ public class UserProfileActivity extends AppCompatActivity {
     }
 
     private void changeVisibilityAll() {
+        if (profilePicture.isClickable()) profilePicture.setClickable(false);
+        else profilePicture.setClickable(true);
+        if (imageEdit.getVisibility() == View.VISIBLE) imageEdit.setVisibility(View.GONE);
+        else imageEdit.setVisibility(View.VISIBLE);
         changeVisibility(age, ageEdit);
         changeVisibility(yis, yisEdit);
         changeVisibility(jumps, jumpsEdit);
@@ -256,6 +286,75 @@ public class UserProfileActivity extends AppCompatActivity {
             e.printStackTrace();
         }
         return s;
+    }
+
+    public void chooseImage(View view) {
+        changedPic = true;
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_REQUEST);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK
+                && data != null && data.getData() != null )
+        {
+            filePath = data.getData();
+            try {
+                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);
+                profilePicture.setImageBitmap(bitmap);
+                uploadImage();
+            }
+            catch (IOException e)
+            {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    private void uploadImage() {
+        if (filePath != null) {
+            final ProgressDialog progressDialog = new ProgressDialog(this);
+            progressDialog.setTitle("Uploading picture");
+            progressDialog.show();
+
+            StorageReference ref = storageReference.child("PP/"+ uid);
+            ref.putFile(filePath).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                    progressDialog.dismiss();
+                    Toast.makeText(UserProfileActivity.this, "Uploaded", Toast.LENGTH_SHORT).show();
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    progressDialog.dismiss();
+                    Toast.makeText(UserProfileActivity.this, "Upload failed", Toast.LENGTH_SHORT).show();
+                }
+            }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
+                    double progress = (100.0 * taskSnapshot.getBytesTransferred()/taskSnapshot.getTotalByteCount());
+                    progressDialog.setMessage("Uploaded " + (int)progress + "%");
+                }
+            });
+        }
+    }
+
+    private void updateImage() {
+        storageReference2 = FirebaseStorage.getInstance().getReference().child("PP").child(uid);
+        storageReference2.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+            @Override
+            public void onSuccess(Uri uri) {
+                Glide.with(UserProfileActivity.this)
+                        .load(uri)
+                        .centerCrop()
+                        .into(profilePicture);
+            }
+        });
     }
 }
 

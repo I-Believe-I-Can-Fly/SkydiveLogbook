@@ -6,13 +6,14 @@
     android:layout_height="match_parent"
     tools:context=".UserProfileActivity">
 
-    <ImageView
+    <ImageButton
         android:id="@+id/profilePicture"
         android:layout_width="180dp"
         android:layout_height="180dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        android:onClick="chooseImage"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -42,7 +43,7 @@
         android:onClick="editClick"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@android:drawable/ic_menu_edit" />
+        app:srcCompat="@drawable/ic_mode_edit_black_24dp" />
 
     <ImageButton
         android:id="@+id/confirmEdit"
@@ -50,10 +51,9 @@
         android:layout_height="42dp"
         android:background="@android:color/transparent"
         android:onClick="confirmClick"
-        android:tint="@android:color/darker_gray"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@android:drawable/stat_notify_sdcard" />
+        app:srcCompat="@drawable/ic_check_black_24dp" />
 
     <ImageButton
         android:id="@+id/cancelEdit"
@@ -63,7 +63,21 @@
         android:onClick="cancelClick"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@android:drawable/ic_menu_close_clear_cancel" />
+        app:srcCompat="@drawable/ic_close_black_24dp" />
+
+    <ImageView
+        android:id="@+id/imageEdit"
+        android:layout_width="180dp"
+        android:layout_height="180dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:background="@android:color/transparent"
+        android:tint="@color/common_google_signin_btn_text_light_pressed"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_mode_edit_black_24dp" />
 
     <LinearLayout
         android:id="@+id/linearLayout"
