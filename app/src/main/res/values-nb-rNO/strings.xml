@@ -52,4 +52,16 @@
     <string name="dobEmpty">Feil: Fødselsdato kan ikke være tomt!</string>
     <string name="licenseWrongLength">Feil: Lisens er ikke riktig lengde!</string>
     <string name="notValidDate">Feil: Ikke gyldig dato!</string>
+    <string name="age">Alder</string>
+    <string name="yearsInSport">År i sporten</string>
+    <string name="jumps">Hopp</string>
+    <string name="cert">Sertifikat</string>
+    <string name="uploading">Laster opp bilde</string>
+    <string name="uploadedProgress">Lastet opp</string>
+    <string name="uploaded">Lastet opp</string>
+    <string name="uploadFailed">Feilet med å laste opp</string>
+    <string name="settingsSaved">Instillinger lagret</string>
+    <string name="SignIt">Signer hopp</string>
+    <string name="invalidUser">Ugylidg bruker</string>
+    <string name="primaryDropzone">Hoved Droppsone</string>
 </resources>

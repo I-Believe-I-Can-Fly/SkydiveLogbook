@@ -58,7 +58,7 @@
     <string name="uploaded">Uploaded</string>
     <string name="uploadFailed">Upload failed</string>
     <string name="settingsSaved">Settings saved</string>
-    <string name="learner">Learner</string>
+    <string name="learner" translatable="false">Learner</string>
 
     <!-- sup -->
     <string name="approved">Approved</string>

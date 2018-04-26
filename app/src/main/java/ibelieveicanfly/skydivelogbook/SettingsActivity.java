@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
 import android.view.View;
@@ -12,13 +13,14 @@ import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.Spinner;
 import android.widget.Switch;
+import android.widget.Toast;
 
 import java.util.Locale;
 
 public class SettingsActivity extends AppCompatActivity {
+    public static final String KEY_CODE = "countryCode";
     private static final String KEY_N = "isCheked";
     private static final String KEY_L = "languageKey";
-    private static final String KEY_CODE = "countryCode";
     private Switch switch_Notification;
     private Spinner spinner_Languages;
     private Button btn_Languages;
@@ -120,8 +122,12 @@ public class SettingsActivity extends AppCompatActivity {
                 break;
         }
 
-        // Save language
-        // TODO : Remember what language is set, and change to that language
+        // Save language TODO : Remember what language is set, and change to that language
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPreferences.Editor editorToMain = preferences.edit();
+
+        editorToMain.putString(KEY_CODE, countryCode);
+        editorToMain.apply();
 
         // Set language
         configuration.locale = new Locale(countryCode);
@@ -136,13 +142,5 @@ public class SettingsActivity extends AppCompatActivity {
     // Use this from other activities to check if true or false
     public boolean getNotification() {
         return switch_Notification.isChecked();
-    }
-
-    public Locale getLocale(){
-        if(spinner_Languages.getSelectedItemPosition() == 0){
-            return new Locale("en");
-        } else {
-            return new Locale("nb");
-        }
     }
 }

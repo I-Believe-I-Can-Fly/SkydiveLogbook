@@ -1,8 +1,10 @@
 package ibelieveicanfly.skydivelogbook;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -47,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-//        setLanguage();
+        setLanguage();
 
         auth = FirebaseAuth.getInstance();
         // auth.signOut();
@@ -78,11 +80,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setLanguage(){
-        // TODO : fix this, so i get locale
-        SettingsActivity settings = new SettingsActivity();
-        Locale locale = settings.getLocale();
 
-        Toast.makeText(MainActivity.this, locale.getDisplayCountry(), Toast.LENGTH_SHORT).show();
+        final SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        final String countryCode = preferences.getString("countryCode", "en");
+        DisplayMetrics metrics = getResources().getDisplayMetrics();
+        Configuration configuration = getResources().getConfiguration();
+        configuration.locale = new Locale(countryCode);
+        getResources().updateConfiguration(configuration, metrics);
     }
 
     // userStatus checks if user is signed in or not
