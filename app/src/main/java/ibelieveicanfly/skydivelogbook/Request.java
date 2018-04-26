@@ -5,14 +5,16 @@ public class Request {
     private String Signer;
     private String JumpNr;
     private String UserName;
+    private String RequestID;
 
     public Request(){ }
 
-    public Request(String UserID, String SignerID, String JumpNr, String userName){
+    public Request(String UserID, String SignerID, String JumpNr, String userName, String requestID){
         this.UserID = UserID;
         this.Signer = SignerID;
         this.JumpNr = JumpNr;
         this.UserName = userName;
+        this.RequestID = requestID;
     }
 
     public String getSigner() {
@@ -45,5 +47,13 @@ public class Request {
 
     public String getUserName() {
         return UserName;
+    }
+
+    public String getRequestID() {
+        return RequestID;
+    }
+
+    public void setRequestID(String requestID) {
+        RequestID = requestID;
     }
 }

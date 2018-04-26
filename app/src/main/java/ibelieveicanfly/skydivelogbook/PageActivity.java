@@ -1,14 +1,11 @@
 package ibelieveicanfly.skydivelogbook;
 
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -29,7 +26,6 @@ public class PageActivity extends AppCompatActivity {
     private FirebaseAuth auth;
     private FirebaseDatabase mDatabase;
     private DatabaseReference myRef;
-
 
 
     @Override
@@ -60,7 +56,7 @@ public class PageActivity extends AppCompatActivity {
         mViewPager.post(new Runnable() {
             @Override
             public void run() {
-                mViewPager.setCurrentItem(JUMP-1);
+                mViewPager.setCurrentItem(JUMP - 1);
             }
         });
     }

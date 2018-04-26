@@ -1,10 +1,9 @@
 package ibelieveicanfly.skydivelogbook;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -44,7 +43,7 @@ public class EvaluateRequestActivity extends AppCompatActivity {
 
         this.mDatabase = FirebaseDatabase.getInstance();
         this.myRef = mDatabase.getReference("Requests");
-        this.recyclerView = (RecyclerView)findViewById(R.id.EvaluateRecycler);
+        this.recyclerView = (RecyclerView) findViewById(R.id.EvaluateRecycler);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         requests = new ArrayList<>();
@@ -54,9 +53,9 @@ public class EvaluateRequestActivity extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 requests.clear();
-                for(DataSnapshot child: dataSnapshot.getChildren()) {
+                for (DataSnapshot child : dataSnapshot.getChildren()) {
                     Request request = child.getValue(Request.class);
-                    if(request.getSigner().equals(uid)){
+                    if (request.getSigner().equals(uid)) {
                         requests.add(request);
                         refreshListAdapter();
                     }
@@ -72,7 +71,7 @@ public class EvaluateRequestActivity extends AppCompatActivity {
         adapter = new RequestAdapter(this);
     }
 
-    public void refreshListAdapter(){
+    public void refreshListAdapter() {
         //We set the array to the adapter
         adapter.setListContent(requests);
         //We in turn set the adapter to the RecyclerView
@@ -83,12 +82,12 @@ public class EvaluateRequestActivity extends AppCompatActivity {
     public class RequestAdapter extends RecyclerView.Adapter<RequestAdapter.MyViewHolder> {
 
         Context context;
-        private ArrayList<Request> requests=new ArrayList<>();
+        private ArrayList<Request> requests = new ArrayList<>();
         private final LayoutInflater inflater;
 
         public RequestAdapter(Context context) {
             this.context = context;
-            inflater=LayoutInflater.from(context);
+            inflater = LayoutInflater.from(context);
         }
 
         @Override
@@ -104,6 +103,11 @@ public class EvaluateRequestActivity extends AppCompatActivity {
             String text2 = "Jump " + request.getJumpNr();
             holder.nameTxt.setText(text1);
             holder.jumpNr.setText(text2);
+
+            holder.UserID = request.getUserID();
+            holder.JumpNrTxt = request.getJumpNr();
+            holder.SignerID = request.getSigner();
+            holder.RequestID = request.getRequestID();
         }
 
         @Override
@@ -112,14 +116,15 @@ public class EvaluateRequestActivity extends AppCompatActivity {
         }
 
         //Setting the arraylist
-        public void setListContent(ArrayList<Request> requests){
-            this.requests=requests;
+        public void setListContent(ArrayList<Request> requests) {
+            this.requests = requests;
             notifyItemRangeChanged(0, requests.size());
         }
 
-        public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+        public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
             TextView nameTxt, jumpNr;
+            String UserID, JumpNrTxt, SignerID, RequestID;
 
             public MyViewHolder(View itemView) {
                 super(itemView);
@@ -127,15 +132,17 @@ public class EvaluateRequestActivity extends AppCompatActivity {
                 nameTxt = (TextView) itemView.findViewById(R.id.EvaluateName);
                 jumpNr = (TextView) itemView.findViewById(R.id.EvaluateJumpNr);
             }
+
             @Override
             public void onClick(View v) {
-                /*
-                Intent intent = new Intent(getApplicationContext(), CreatePageActivity.class);
+                Intent intent = new Intent(getApplicationContext(), EvaluateJumpActivity.class);
 
-                intent.putExtra("SignUser_id", SignatureUserID); // Dette burde vært userID'en til brukeren
-                intent.putExtra("SignUser_text", nameTxt.getText().toString()+" "+licenseTxt.getText().toString());
-                setResult(Activity.RESULT_OK, intent);
-                finish();*/
+                intent.putExtra("JumpNr", JumpNrTxt);
+                intent.putExtra("UserID", UserID);
+                intent.putExtra("SignerID", SignerID);
+                intent.putExtra("RequestID", RequestID);
+
+                startActivity(intent);
             }
 
         }

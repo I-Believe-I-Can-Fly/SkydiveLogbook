@@ -32,6 +32,9 @@
         <activity
             android:name=".EvaluateRequestActivity"
             android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".EvaluateJumpActivity"
+            android:parentActivityName=".EvaluateRequestActivity"/>
     </application>
 
 </manifest>
