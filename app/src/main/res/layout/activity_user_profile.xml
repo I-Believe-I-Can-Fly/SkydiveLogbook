@@ -146,7 +146,7 @@
                     android:layout_height="wrap_content"
                     android:ems="10"
                     android:inputType="textPersonName"
-                    android:hint="Set date"
+                    android:hint="@string/age"
                     android:textSize="20sp"
                     android:textStyle="bold" />
 
@@ -207,7 +207,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:ems="10"
-                    android:hint="How many years"
+                    android:hint="@string/yearsInSport"
                     android:inputType="number"
                     android:textSize="20sp"
                     android:textStyle="bold" />
@@ -270,7 +270,7 @@
                     android:layout_height="wrap_content"
                     android:ems="10"
                     android:inputType="number"
-                    android:hint="Jumps"
+                    android:hint="@string/jumps"
                     android:textSize="20sp"
                     android:textStyle="bold" />
 
@@ -388,7 +388,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:ems="10"
-                    android:hint="Primary dropzone"
+                    android:hint="@string/primaryDropzone"
                     android:inputType="textCapCharacters"
                     android:textSize="20sp"
                     android:textStyle="bold" />
