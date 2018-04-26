@@ -278,9 +278,8 @@ public class CreatePageActivity extends AppCompatActivity {
     }
 
     private void createSignatureRequest(String User, String Signer, String JumpNr){
-        Request request = new Request(User, Signer, JumpNr, mUsernameTxt);
-
         String key = myRef2.push().getKey();
+        Request request = new Request(User, Signer, JumpNr, mUsernameTxt, key);
         myRef2.child(key).setValue(request);
     }
 }
