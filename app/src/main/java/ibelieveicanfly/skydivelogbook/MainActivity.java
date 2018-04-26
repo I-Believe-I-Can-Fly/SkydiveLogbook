@@ -1,15 +1,18 @@
 package ibelieveicanfly.skydivelogbook;
 
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import com.github.clans.fab.FloatingActionButton;
 import com.github.clans.fab.FloatingActionMenu;
@@ -22,6 +25,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
@@ -30,7 +34,6 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseAuth auth;
     private FirebaseDatabase mDatabase;
     private DatabaseReference myRef;
-
     private FloatingActionMenu floatingActionMenu;
     private FloatingActionButton floatingActionButton1, floatingActionButton2;
 
@@ -43,6 +46,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+//        setLanguage();
 
         auth = FirebaseAuth.getInstance();
         // auth.signOut();
@@ -70,6 +75,14 @@ public class MainActivity extends AppCompatActivity {
         });
 
         refreshListAdapter();
+    }
+
+    private void setLanguage(){
+        // TODO : fix this, so i get locale
+        SettingsActivity settings = new SettingsActivity();
+        Locale locale = settings.getLocale();
+
+        Toast.makeText(MainActivity.this, locale.getDisplayCountry(), Toast.LENGTH_SHORT).show();
     }
 
     // userStatus checks if user is signed in or not
@@ -152,9 +165,14 @@ public class MainActivity extends AppCompatActivity {
      */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        Intent intent;
         switch (item.getItemId()) {
             case R.id.action_profile:
-                Intent intent = new Intent(this, UserProfileActivity.class);
+                intent = new Intent(MainActivity.this, UserProfileActivity.class);
+                startActivity(intent);
+                return true;
+            case R.id.action_settings:
+                intent = new Intent(MainActivity.this, SettingsActivity.class);
                 startActivity(intent);
                 return true;
             default:

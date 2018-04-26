@@ -28,14 +28,18 @@
             android:parentActivityName=".CreatePageActivity" />
         <activity
             android:name=".UserProfileActivity"
-            android:screenOrientation="portrait"
-            android:parentActivityName=".MainActivity" />
+            android:parentActivityName=".MainActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".EvaluateRequestActivity"
             android:parentActivityName=".MainActivity" />
         <activity
+            android:name=".SettingsActivity"
+            android:parentActivityName=".MainActivity" />
+        <activity
             android:name=".EvaluateJumpActivity"
-            android:parentActivityName=".EvaluateRequestActivity"/>
+            android:parentActivityName=".EvaluateRequestActivity" />
+
     </application>
 
 </manifest>
