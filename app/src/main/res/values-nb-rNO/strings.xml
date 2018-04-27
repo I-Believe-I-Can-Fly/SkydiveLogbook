@@ -65,4 +65,6 @@
     <string name="invalidUser">Ugylidg bruker</string>
     <string name="primaryDropzone">Hoved Droppsone</string>
     <string name="logOut">Logg ut</string>
+    <string name="english">Engelsk</string>
+    <string name="norwegian">Norsk</string>
 </resources>

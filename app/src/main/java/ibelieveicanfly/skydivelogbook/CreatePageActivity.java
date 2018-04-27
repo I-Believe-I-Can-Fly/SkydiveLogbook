@@ -75,7 +75,7 @@ public class CreatePageActivity extends AppCompatActivity {
         this.myRef = mDatabase.getReference("Logs");
         this.myRef2 = mDatabase.getReference("Requests");
 
-        getUser();
+        getLogbook();
     }
 
     public void onStart() {
@@ -189,10 +189,10 @@ public class CreatePageActivity extends AppCompatActivity {
         if (TextUtils.isEmpty(mSignatureUserID)) {
             filled = false;
         }
-        if (TextUtils.isEmpty(mSignature.getText())){
+        if (TextUtils.isEmpty(mSignature.getText())) {
             filled = false;
         }
-        if (!mDate.getText().toString().matches("^[0-9][1-9]/[0-9][1-9]/[1-2][0-9]{3}$")) {
+        if (!mDate.getText().toString().matches("^[0-9]{1,2}/[0-9]{1,2}/[1-2][0-9]{3}$")) {
             filled = false;
         }
 
@@ -216,29 +216,28 @@ public class CreatePageActivity extends AppCompatActivity {
         return null;
     }
 
-    private void getUser() {
-        DatabaseReference usersRef = FirebaseDatabase.getInstance().getReference("Users");
-        DatabaseReference ref = usersRef.child(auth.getCurrentUser().getUid());
+    private void getLogbook() {
 
+        DatabaseReference reference = mDatabase.getReference("Logs").child(auth.getCurrentUser().getUid());
 
-        ref.addListenerForSingleValueEvent(new ValueEventListener() {
+        reference.orderByChild("jumpNr").limitToLast(1).addValueEventListener(new ValueEventListener() {
             @Override
-            public void onDataChange(DataSnapshot users) {
-                User user = users.getValue(User.class);
-                mUsernameTxt = user.getFirstName() + " " + user.getLastName();
-                autoComplete(user);
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                // I had to have a for loop here, even though I'm just getting one logbookPage object :)))))
+                for (DataSnapshot child : dataSnapshot.getChildren()) {
+                    LogbookPage logbookPage = child.getValue(LogbookPage.class);
+                    autoComplete(logbookPage);
+                }
             }
 
             @Override
-            public void onCancelled(DatabaseError databaseError) {
-                // Failed to get current user
+            public void onCancelled(DatabaseError error) {
             }
         });
+
     }
 
-    private void autoComplete(User user) {
-        // TODO: Auto complete jumpNr
-        // TODO: Get info about last log
+    private void autoComplete(LogbookPage logbookPage) {
 
         // Get date
         DateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
@@ -247,28 +246,30 @@ public class CreatePageActivity extends AppCompatActivity {
         // Set date
         mDate.setText(sdf.format(date));
 
-        // mJumpNr.setText();
 
-        if (user != null) {
-            if (user.dropZone != null) {
-                mDz.setText(user.dropZone);
-            }
-            if (user.plane != null) {
-                mPlane.setText(user.plane);
-            }
-            if (user.equipment != null) {
-                mEquipment.setText(user.equipment);
-            }
-            if (user.exitAlt != null) {
-                mExit.setText(user.exitAlt);
-            }
-            if (user.canopyAlt != null) {
-                mCanopy.setText(user.canopyAlt);
-            }
-            if (user.freefall != null) {
-                mFreefall.setText(user.freefall);
-            }
+        if (logbookPage.getJumpNr() != null) {
+            String newJump = (logbookPage.getJumpNr() + 1) + "";
+            mJumpNr.setText(newJump);
         }
+        if (logbookPage.getDz() != null) {
+            mDz.setText(logbookPage.getDz());
+        }
+        if (logbookPage.getPlane() != null) {
+            mPlane.setText(logbookPage.getPlane());
+        }
+        if (logbookPage.getEquipment() != null) {
+            mEquipment.setText(logbookPage.getEquipment());
+        }
+        if (logbookPage.getExit() != null) {
+            mExit.setText(logbookPage.getExit());
+        }
+        if (logbookPage.getCanopy() != null) {
+            mCanopy.setText(logbookPage.getCanopy());
+        }
+        if (logbookPage.getFreefall() != null) {
+            mFreefall.setText(logbookPage.getFreefall());
+        }
+
     }
 
     private void savePageToFirebase(LogbookPage logbookPage) {
@@ -277,7 +278,7 @@ public class CreatePageActivity extends AppCompatActivity {
         myRef.child(userID).child(key).setValue(logbookPage);
     }
 
-    private void createSignatureRequest(String User, String Signer, String JumpNr){
+    private void createSignatureRequest(String User, String Signer, String JumpNr) {
         String key = myRef2.push().getKey();
         Request request = new Request(User, Signer, JumpNr, mUsernameTxt, key);
         myRef2.child(key).setValue(request);

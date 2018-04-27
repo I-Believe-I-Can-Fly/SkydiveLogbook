@@ -71,8 +71,6 @@ public class SignInActivity extends AppCompatActivity {
         setContentView(R.layout.activity_sign_in);
 
         getValues();
-        // TODO : The phone has to be at least 5' 1080x1920 420dpi For the whole register form to show...Fix this!
-        // TODO : first name - last name and certificate - license is not to the middle of the screen
 
         txt_register.setText(Html.fromHtml(newUser + boldRegister));
         txt_forgotten.setText(forgottenPass);
@@ -240,7 +238,7 @@ public class SignInActivity extends AppCompatActivity {
         } else if (license.length() != 6) {
             Toast.makeText(SignInActivity.this, wrongLength, Toast.LENGTH_SHORT).show();
 
-        } else if (!dateOfBirth.matches("^[0-9][1-9]/[0-9][1-9]/[1-2][0-9]{3}$")) {
+        } else if (!dateOfBirth.matches("^[0-9]{1,2}/[0-9]{1,2}/[1-2][0-9]{3}$")) {
             Toast.makeText(SignInActivity.this, notValidDate, Toast.LENGTH_SHORT).show();
 
         } else if (!password.equals(confirmPassword)) {

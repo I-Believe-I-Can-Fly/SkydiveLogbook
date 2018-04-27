@@ -27,12 +27,19 @@ public class SettingsActivity extends AppCompatActivity {
     private boolean notificationOn;
     private SharedPreferences.Editor editor;
     private SharedPreferences preferences;
-    private String[] languages = {"English", "Norwegian"};
+    private String norwegian;
+    private String english;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
+
+        english = this.getResources().getString(R.string.english);
+        norwegian = this.getResources().getString(R.string.norwegian);
+
+        String[] languages = {english, norwegian};
 
         ArrayAdapter<String> adapter = new ArrayAdapter<>(SettingsActivity.this, android.R.layout.simple_spinner_item, languages);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -92,29 +99,28 @@ public class SettingsActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 int position = spinner_Languages.getSelectedItemPosition();
-                String selection = spinner_Languages.getSelectedItem().toString();
 
                 editor = getPreferences(0).edit();
                 editor.putInt(KEY_L, position);
                 editor.apply();
 
-                switchLanguage(selection);
+                switchLanguage(position);
             }
         });
     }
 
     // https://stackoverflow.com/questions/12908289/how-to-change-language-of-app-when-user-selects-language
-    private void switchLanguage(String language) {
+    private void switchLanguage(int language) {
         DisplayMetrics metrics = getResources().getDisplayMetrics();
         Configuration configuration = getResources().getConfiguration();
         String countryCode;
 
         // Get language code and save it
         switch (language) {
-            case "English":
+            case 0:
                 countryCode = "en";
                 break;
-            case "Norwegian":
+            case 1:
                 countryCode = "nb";
                 break;
             default:
@@ -122,7 +128,7 @@ public class SettingsActivity extends AppCompatActivity {
                 break;
         }
 
-        // Save language TODO : Remember what language is set, and change to that language
+        // Save language
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
         SharedPreferences.Editor editorToMain = preferences.edit();
 
@@ -137,10 +143,5 @@ public class SettingsActivity extends AppCompatActivity {
         Intent refresh = new Intent(SettingsActivity.this, SettingsActivity.class);
         startActivity(refresh);
         finish();
-    }
-
-    // Use this from other activities to check if true or false
-    public boolean getNotification() {
-        return switch_Notification.isChecked();
     }
 }

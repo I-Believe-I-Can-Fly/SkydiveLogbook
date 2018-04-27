@@ -93,6 +93,7 @@ public class PageActivity extends AppCompatActivity {
         @Override
         public Fragment getItem(int position) {
             // TODO: Send actual jumpNr instead of position, will not work unless the user logs every jump from jump 1.
+            // TODO : pls fix this, Brukte 45min på å finne en feil som ikke var min :)
             PageFragment pageFragment = new PageFragment().newInstance(userID, position);
             return pageFragment;
         }

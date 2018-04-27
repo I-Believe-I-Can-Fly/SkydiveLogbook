@@ -129,7 +129,7 @@ public class MainActivity extends AppCompatActivity {
      */
     private void getLogs(String uID) {
         // Read from the database
-        myRef.child(uID).addValueEventListener(new ValueEventListener() {
+        myRef.child(uID).orderByChild("jumpNr").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 jumpList.clear();
