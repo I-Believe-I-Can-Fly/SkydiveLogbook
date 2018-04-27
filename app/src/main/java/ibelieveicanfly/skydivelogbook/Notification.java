@@ -13,7 +13,6 @@ import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.v4.app.NotificationCompat;
 import android.util.DisplayMetrics;
-import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
@@ -21,7 +20,6 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 import java.util.Locale;
 
@@ -87,27 +85,26 @@ public class Notification extends IntentService {
     }
 
     // Send notification when a user get asked to sign a jump
-    private void requestRecieved(DatabaseReference reference, final String userId) {
+    private void requestRecieved(final DatabaseReference reference, final String userId) {
 
         // Get resources
         final String title = this.getResources().getString(R.string.newRequest);
         final String content = this.getResources().getString(R.string.approveThis);
 
-        // TODO: actually send user to the jump
-        final Intent intent = new Intent(this, EvaluateRequestActivity.class);
+        final Intent intent = new Intent(this, EvaluateJumpActivity.class);
 
         request = null;
-
         reference.orderByChild("signer").equalTo(userId).addChildEventListener(new ChildEventListener() {
 
             // If an request with signer 'userId' is added
             @Override
-            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                request = dataSnapshot.getValue(Request.class);
+            public void onChildAdded(DataSnapshot logs, String s) {
+                request = logs.getValue(Request.class);
 
-                if(request != null && notificationOn){
+                // If request is not null and user wants notifications
+                if (request != null && notificationOn) {
                     String contentText = request.getUserName() + " " + content + " " + request.getJumpNr();
-                    sendNotification(title, contentText, intent);
+                    sendNotification(title, contentText, intent, request);
                 }
             }
 
@@ -127,17 +124,19 @@ public class Notification extends IntentService {
             public void onCancelled(DatabaseError databaseError) {
             }
         });
+
+
     }
 
     // Send notification when a users jump is approved
-    private void jumpApproved(final DatabaseReference reference, String userId){
+    private void jumpApproved(final DatabaseReference reference, String userId) {
 
         // Get resources
         final String title = this.getResources().getString(R.string.jumpApproved);
         final String title2 = this.getResources().getString(R.string.hasApproved);
         final String content = this.getResources().getString(R.string.contentApproved);
 
-        final Intent intent = new Intent(this, MainActivity.class);
+        final Intent intent = new Intent(this, PageActivity.class);
 
         request = null;
         reference.orderByChild("userID").equalTo(userId).addChildEventListener(new ChildEventListener() {
@@ -153,10 +152,9 @@ public class Notification extends IntentService {
             @Override
             public void onChildRemoved(DataSnapshot dataSnapshot) {
                 request = dataSnapshot.getValue(Request.class);
-                if(request != null && notificationOn){
+                if (request != null && notificationOn) {
                     String fullTitle = title + " " + request.getJumpNr() + " " + title2;
-
-                    sendNotification(fullTitle, content, intent);
+                    sendNotification(fullTitle, content, intent, request);
                 }
             }
 
@@ -171,10 +169,20 @@ public class Notification extends IntentService {
 
     }
 
-    private void sendNotification(String title, String content, Intent intent) {
+    private void sendNotification(String title, String content, Intent intent, Request request) {
 
-        // Activate the intent(?)
-        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
+        // Send what needs to be sent
+        if (intent.toString().contains("PageActivity")) {
+            intent.putExtra("jump", Integer.parseInt(request.getJumpNr()));
+        } else if (intent.toString().contains("EvaluateJumpActivity")) {
+            intent.putExtra("JumpNr", request.getJumpNr());
+            intent.putExtra("UserID", request.getUserID());
+            intent.putExtra("SignerID", request.getSigner());
+            intent.putExtra("RequestID", request.getRequestID());
+        }
+
+        // Activate intent(?)
+        PendingIntent pendingIntent = PendingIntent.getActivity(Notification.this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         // Set icon
         this.builder.setSmallIcon(R.drawable.ic_notifications_white_48dp);
