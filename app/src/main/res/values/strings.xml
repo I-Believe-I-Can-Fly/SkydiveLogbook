@@ -90,4 +90,6 @@
     <string name="logOut">Log out</string>
     <string name="english">English</string>
     <string name="norwegian">Norwegian</string>
+    <string name="logNewJump">Log new jump</string>
+    <string name="signatureRequests">Signature requests</string>
 </resources>

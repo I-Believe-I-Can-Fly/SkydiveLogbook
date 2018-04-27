@@ -67,4 +67,6 @@
     <string name="logOut">Logg ut</string>
     <string name="english">Engelsk</string>
     <string name="norwegian">Norsk</string>
+    <string name="logNewJump">Logg nytt hopp</string>
+    <string name="signatureRequests">Signaturforespørsler</string>
 </resources>

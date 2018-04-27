@@ -21,7 +21,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         fab:menu_animationDelayPerItem="55"
@@ -60,7 +60,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_add_white_24dp"
-            fab:fab_label="Log new jump"
+            fab:fab_label="@string/logNewJump"
             fab:fab_size="mini" />
 
         <com.github.clans.fab.FloatingActionButton
@@ -68,8 +68,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_playlist_add_check_white_24dp"
-
-            fab:fab_label="Signature requests"
+            fab:fab_label="@string/signatureRequests"
             fab:fab_size="mini" />
 
     </com.github.clans.fab.FloatingActionMenu>
