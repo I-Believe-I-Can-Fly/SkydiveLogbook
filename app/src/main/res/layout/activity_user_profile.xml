@@ -147,6 +147,8 @@
                     android:ems="10"
                     android:inputType="textPersonName"
                     android:hint="@string/age"
+                    android:clickable="true"
+                    android:onClick="setAge"
                     android:textSize="20sp"
                     android:textStyle="bold" />
 

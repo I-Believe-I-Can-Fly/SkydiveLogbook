@@ -127,18 +127,10 @@ public class UserProfileActivity extends AppCompatActivity {
 
     }
 
-    public void onStart() {
-        super.onStart();
-        ageEdit.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (hasFocus) {
-                    DateDialog dialog = new DateDialog(v, tempUser.dateOfBirth);
-                    FragmentTransaction ft = getFragmentManager().beginTransaction();
-                    dialog.show(ft, "DatePicker");
-                }
-            }
-        });
+    public void setAge(View view){
+        DateDialog dialog = new DateDialog(view, tempUser.dateOfBirth);
+        FragmentTransaction ft = getFragmentManager().beginTransaction();
+        dialog.show(ft, "DatePicker");
     }
 
     private void getFromDB() {
