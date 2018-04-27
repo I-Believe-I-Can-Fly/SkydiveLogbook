@@ -28,15 +28,15 @@ public class PageFragment extends Fragment {
 
     private LogbookPage page;
 
-    private EditText mJumpNr;
-    private EditText mDate;
-    private EditText mDz;
-    private EditText mPlane;
-    private EditText mEquipment;
-    private EditText mExit;
-    private EditText mFreefall;
-    private EditText mCanopy;
-    private EditText mComments;
+    private TextView mJumpNr;
+    private TextView mDate;
+    private TextView mDz;
+    private TextView mPlane;
+    private TextView mEquipment;
+    private TextView mExit;
+    private TextView mFreefall;
+    private TextView mCanopy;
+    private TextView mComments;
     private TextView mSignature;
     private boolean mApproved = false;
 
@@ -78,17 +78,17 @@ public class PageFragment extends Fragment {
         pageInfo();
 
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_page, container, false);
+        View view = inflater.inflate(R.layout.fragment_page_view, container, false);
 
-        mJumpNr = (EditText) view.findViewById(R.id.page_jumpNr);
-        mDate = (EditText) view.findViewById(R.id.page_date);
-        mDz = (EditText) view.findViewById(R.id.page_DZ);
-        mPlane = (EditText) view.findViewById(R.id.page_plane);
-        mEquipment = (EditText) view.findViewById(R.id.page_equipment);
-        mExit = (EditText) view.findViewById(R.id.page_exitAlt);
-        mFreefall = (EditText) view.findViewById(R.id.page_freefallTime);
-        mCanopy = (EditText) view.findViewById(R.id.page_canopyAlt);
-        mComments = (EditText) view.findViewById(R.id.page_comments);
+        mJumpNr = (TextView) view.findViewById(R.id.page_jumpNr);
+        mDate = (TextView) view.findViewById(R.id.page_date);
+        mDz = (TextView) view.findViewById(R.id.page_DZ);
+        mPlane = (TextView) view.findViewById(R.id.page_plane);
+        mEquipment = (TextView) view.findViewById(R.id.page_equipment);
+        mExit = (TextView) view.findViewById(R.id.page_exitAlt);
+        mFreefall = (TextView) view.findViewById(R.id.page_freefallTime);
+        mCanopy = (TextView) view.findViewById(R.id.page_canopyAlt);
+        mComments = (TextView) view.findViewById(R.id.page_comments);
         mSignature = (TextView) view.findViewById(R.id.page_signed);
 
         return view;

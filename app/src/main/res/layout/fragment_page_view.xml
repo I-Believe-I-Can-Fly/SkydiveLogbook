@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -13,7 +11,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:text="@string/jumpNr"
-        android:textColor="@android:color/black"
+        android:textColor="#474747"
         app:layout_constraintBottom_toTopOf="@+id/page_jumpNr"
         app:layout_constraintEnd_toStartOf="@+id/textView9"
         app:layout_constraintStart_toStartOf="parent"
@@ -26,7 +24,7 @@
         android:layout_marginEnd="16dp"
         android:layout_marginTop="16dp"
         android:text="@string/date"
-        android:textColor="@android:color/black"
+        android:textColor="#474747"
         app:layout_constraintBottom_toTopOf="@+id/page_date"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/textView12"
@@ -39,10 +37,11 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:text="@string/dropzone"
-        android:textColor="@android:color/black"
+        android:textColor="#474747"
+        app:layout_constraintBottom_toTopOf="@+id/page_DZ"
         app:layout_constraintEnd_toStartOf="@+id/textView10"
         app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="80dp" />
+        app:layout_constraintTop_toBottomOf="@+id/page_jumpNr" />
 
     <TextView
         android:id="@+id/textView10"
@@ -50,10 +49,11 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
         android:text="@string/plane"
-        android:textColor="@android:color/black"
+        android:textColor="#474747"
+        app:layout_constraintBottom_toTopOf="@+id/page_plane"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/textView11"
-        tools:layout_editor_absoluteY="80dp" />
+        app:layout_constraintTop_toBottomOf="@+id/page_date" />
 
     <TextView
         android:id="@+id/textView13"
@@ -61,7 +61,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:text="@string/equipment"
-        android:textColor="@android:color/black"
+        android:textColor="#474747"
         app:layout_constraintBottom_toTopOf="@+id/page_equipment"
         app:layout_constraintEnd_toStartOf="@+id/textView14"
         app:layout_constraintStart_toStartOf="parent"
@@ -73,7 +73,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
         android:text="@string/exitAlt"
-        android:textColor="@android:color/black"
+        android:textColor="#474747"
         app:layout_constraintBottom_toTopOf="@+id/page_exitAlt"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/textView13"
@@ -85,7 +85,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:text="@string/fallTime"
-        android:textColor="@android:color/black"
+        android:textColor="#474747"
         app:layout_constraintBottom_toTopOf="@+id/page_freefallTime"
         app:layout_constraintEnd_toStartOf="@+id/textView21"
         app:layout_constraintStart_toStartOf="parent"
@@ -97,7 +97,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
         android:text="@string/canopyAlltitude"
-        android:textColor="@android:color/black"
+        android:textColor="#474747"
         app:layout_constraintBottom_toTopOf="@+id/page_canopyAlt"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/textView22"
@@ -110,90 +110,159 @@
         android:layout_marginEnd="16dp"
         android:layout_marginStart="16dp"
         android:text="@string/comments"
-        android:textColor="@android:color/black"
+        android:textColor="#474747"
+        app:layout_constraintBottom_toTopOf="@+id/page_comments"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/page_canopyAlt" />
 
-    <EditText
-        android:id="@+id/page_date"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:ems="10"
-        android:hint="@string/dateHint"
-        android:inputType="date"
-        app:layout_constraintBottom_toTopOf="@+id/textView10"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/page_jumpNr"
-        app:layout_constraintTop_toBottomOf="@+id/textView9" />
-
-    <EditText
-        android:id="@+id/page_DZ"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:ems="10"
-        android:hint="@string/dropzoneHint"
-        android:inputType="textPersonName"
-        app:layout_constraintBottom_toTopOf="@+id/textView13"
-        app:layout_constraintEnd_toStartOf="@+id/page_plane"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView11" />
-
-    <EditText
+    <TextView
         android:id="@+id/page_jumpNr"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
         android:layout_marginStart="16dp"
         android:ems="10"
         android:hint="@string/jumpNumberHint"
+        android:imeOptions="actionNext"
         android:inputType="textPersonName"
+        android:nextFocusRight="@+id/page_date"
+        android:textColor="@android:color/black"
+        android:textSize="16sp"
         app:layout_constraintBottom_toTopOf="@+id/textView11"
         app:layout_constraintEnd_toStartOf="@+id/page_date"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView12" />
 
-    <EditText
+    <TextView
+        android:id="@+id/page_date"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="16dp"
+        android:ems="10"
+        android:hint="@string/dateHint"
+        android:imeOptions="actionNext"
+        android:inputType="date"
+        android:nextFocusDown="@+id/page_DZ"
+        android:textColor="@android:color/black"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/textView10"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/page_jumpNr"
+        app:layout_constraintTop_toBottomOf="@+id/textView9" />
+
+    <TextView
+        android:id="@+id/page_DZ"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginStart="16dp"
+        android:ems="10"
+        android:hint="@string/dropzoneHint"
+        android:imeOptions="actionNext"
+        android:inputType="textPersonName"
+        android:nextFocusRight="@+id/page_plane"
+        android:textColor="@android:color/black"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/textView13"
+        app:layout_constraintEnd_toStartOf="@+id/page_plane"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView11" />
+
+    <TextView
         android:id="@+id/page_plane"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
         android:layout_marginEnd="16dp"
         android:ems="10"
         android:hint="@string/planeHint"
+        android:imeOptions="actionNext"
         android:inputType="textPersonName"
+        android:nextFocusDown="@+id/page_equipment"
+        android:textColor="@android:color/black"
+        android:textSize="16sp"
         app:layout_constraintBottom_toTopOf="@+id/textView14"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/page_DZ"
         app:layout_constraintTop_toBottomOf="@+id/textView10" />
 
-    <EditText
+    <TextView
         android:id="@+id/page_equipment"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
         android:layout_marginStart="16dp"
         android:ems="10"
         android:hint="@string/equipmentHint"
+        android:imeOptions="actionNext"
         android:inputType="textPersonName"
+        android:nextFocusRight="@+id/page_exitAlt"
+        android:textColor="@android:color/black"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/textView22"
         app:layout_constraintEnd_toStartOf="@+id/page_exitAlt"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView13" />
 
-    <EditText
+    <TextView
         android:id="@+id/page_exitAlt"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
         android:layout_marginEnd="16dp"
         android:ems="10"
         android:hint="@string/exitAltitudeHint"
+        android:imeOptions="actionNext"
         android:inputType="textPersonName"
+        android:nextFocusDown="@+id/page_freefallTime"
+        android:textColor="@android:color/black"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/textView21"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/page_equipment"
         app:layout_constraintTop_toBottomOf="@+id/textView14" />
 
-    <EditText
+    <TextView
+        android:id="@+id/page_freefallTime"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginStart="16dp"
+        android:ems="10"
+        android:hint="@string/freefallTimeHint"
+        android:imeOptions="actionNext"
+        android:inputType="textPersonName"
+        android:nextFocusRight="@+id/page_canopyAlt"
+        android:textColor="@android:color/black"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/textView15"
+        app:layout_constraintEnd_toStartOf="@+id/page_canopyAlt"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView22" />
+
+    <TextView
+        android:id="@+id/page_canopyAlt"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="16dp"
+        android:ems="10"
+        android:hint="@string/CanopyAltHint"
+        android:imeOptions="actionNext"
+        android:inputType="textPersonName"
+        android:nextFocusDown="@+id/page_comments"
+        android:textColor="@android:color/black"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/textView15"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/page_freefallTime"
+        app:layout_constraintTop_toBottomOf="@+id/textView21" />
+
+    <TextView
         android:id="@+id/page_comments"
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -203,44 +272,39 @@
         android:ems="10"
         android:hint="@string/CommentsHint"
         android:inputType="textMultiLine"
+        android:padding="1dp"
+        android:textColor="@android:color/black"
+        android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView15" />
 
-    <EditText
-        android:id="@+id/page_canopyAlt"
-        android:layout_width="174dp"
+    <TextView
+        android:id="@+id/SignatureTxt"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
         android:layout_marginEnd="16dp"
-        android:ems="10"
-        android:hint="@string/CanopyAltHint"
-        android:inputType="textPersonName"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/page_freefallTime"
-        app:layout_constraintTop_toBottomOf="@+id/textView21" />
-
-    <EditText
-        android:id="@+id/page_freefallTime"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:ems="10"
-        android:hint="@string/freefallTimeHint"
-        android:inputType="textPersonName"
-        app:layout_constraintEnd_toStartOf="@+id/textView21"
+        android:text="@string/Signature"
+        android:textColor="#474747"
+        app:layout_constraintBottom_toTopOf="@id/page_signed"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView22" />
+        app:layout_constraintTop_toBottomOf="@id/page_comments" />
 
     <TextView
         android:id="@+id/page_signed"
         android:layout_width="0dp"
-        android:layout_height="80dp"
+        android:layout_height="0dp"
         android:layout_marginEnd="16dp"
         android:layout_marginStart="16dp"
-        android:text="Signed by tittymeister numero unoi D#1337"
+        android:text="@string/pickSignature"
+        android:textColor="@android:color/black"
+        android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/page_comments" />
+        app:layout_constraintTop_toBottomOf="@+id/SignatureTxt" />
 </android.support.constraint.ConstraintLayout>

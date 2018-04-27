@@ -44,6 +44,7 @@ public class CreatePageActivity extends AppCompatActivity {
     private FirebaseDatabase mDatabase;
     private DatabaseReference myRef;
     private DatabaseReference myRef2;
+    private DatabaseReference myRef3;
     private FirebaseAuth auth;
     private String userID;
     private String mUsernameTxt;
@@ -74,8 +75,12 @@ public class CreatePageActivity extends AppCompatActivity {
         this.mDatabase = FirebaseDatabase.getInstance();
         this.myRef = mDatabase.getReference("Logs");
         this.myRef2 = mDatabase.getReference("Requests");
+        this.myRef3 = mDatabase.getReference("Users");
 
         getLogbook();
+
+        getUser();
+
     }
 
     public void onStart() {
@@ -214,6 +219,28 @@ public class CreatePageActivity extends AppCompatActivity {
             Toast.makeText(getApplicationContext(), "Required fields not filled", Toast.LENGTH_SHORT).show();
         }
         return null;
+    }
+
+    /**
+     * getUser:
+     * Function get's the user that is creating the page, and saves the full name
+     */
+    private void getUser() {
+        DatabaseReference reference = mDatabase.getReference("Users").child(auth.getCurrentUser().getUid());
+
+        reference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot users) {
+                User user = users.getValue(User.class);
+                mUsernameTxt = user.getFirstName() + " " + user.getLastName();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+
+        });
+
     }
 
     private void getLogbook() {
