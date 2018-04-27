@@ -81,4 +81,7 @@
     <string name="emptySignature">Feil: Signatur kan ikke være tomt!</string>
     <string name="newRequest">Ny Forespørsel!</string>
     <string name="approveThis">vil at du skal godkjenne hopp nr:</string>
+    <string name="jumpApproved">Hopp nr</string>
+    <string name="hasApproved">har blitt godkjent!</string>
+    <string name="contentApproved">Klikk her for å se hoppet</string>
 </resources>

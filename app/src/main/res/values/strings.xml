@@ -104,4 +104,7 @@
     <string name="emptySignature">Error: Signature can not be empty!</string>
     <string name="newRequest">New Request!</string>
     <string name="approveThis">wants yout to approve jump nr:</string>
+    <string name="jumpApproved">Jump nr</string>
+    <string name="hasApproved">has been approved!</string>
+    <string name="contentApproved">Click here to see the jump</string>
 </resources>

@@ -13,8 +13,10 @@ import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.v4.app.NotificationCompat;
 import android.util.DisplayMetrics;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -25,10 +27,8 @@ import java.util.Locale;
 
 public class Notification extends IntentService {
 
-    private static final String KEY = "Notification";
-    private static final String KEY_COUNT = "RequestCount";
+    private static final String KEY_CODE = "countryCode";
     private static final String KEY_CHECKED = "isCheked";
-    private static int oldCount = 0;
     private NotificationManager notificationManager;
     private NotificationCompat.Builder builder;
     private Request request;
@@ -44,8 +44,7 @@ public class Notification extends IntentService {
         // SharedPreferences
         final SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
         notificationOn = preferences.getBoolean(KEY_CHECKED, true);
-        oldCount = preferences.getInt(KEY_COUNT, 0);
-        String countryCode = preferences.getString("countryCode", "en");
+        String countryCode = preferences.getString(KEY_CODE, "en");
 
         // FirebaseAuth
         FirebaseAuth auth = FirebaseAuth.getInstance();
@@ -59,17 +58,12 @@ public class Notification extends IntentService {
             configuration.locale = new Locale(countryCode);
             getResources().updateConfiguration(configuration, metrics);
 
-            // Get resources
-            final String title = this.getResources().getString(R.string.newRequest);
-            final String content = this.getResources().getString(R.string.approveThis);
-
             // Get user id
             final String userID = auth.getCurrentUser().getUid();
 
             // Get database references
             FirebaseDatabase database = FirebaseDatabase.getInstance();
             final DatabaseReference refRequest = database.getReference("Requests");
-            // final DatabaseReference refLogs = database.getReference("Logs");
 
             this.notificationManager = (NotificationManager) this.getSystemService(Service.NOTIFICATION_SERVICE);
 
@@ -86,64 +80,101 @@ public class Notification extends IntentService {
                 builder = new NotificationCompat.Builder(this);
             }
 
-            // Check if there is a new request
-            refRequest.orderByChild("signer").equalTo(userID).addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-                    int currentRequests = 0;
-                    request = null;
-                    for (DataSnapshot ds : dataSnapshot.getChildren()) {
-                        currentRequests++;
-                        if (currentRequests > oldCount) {
-                            request = ds.getValue(Request.class);
-                        }
-                    }
+            requestRecieved(refRequest, userID);
+            jumpApproved(refRequest, userID);
 
-                    // If request is null, then there aren't any new requests AND user wants notifications
-                    if (request != null && notificationOn) {
-
-                        // Send notification if it's not from current user
-                        if (!request.getUserID().equals(userID)) {
-
-                            // Set content text
-                            String contentText = request.getUserName() + " " + content + " " + request.getJumpNr();
-
-                            // Send notification
-                            sendNotification(title, contentText);
-                        }
-
-                        // Save count of requests
-                        SharedPreferences.Editor editor = preferences.edit();
-                        editor.putInt(KEY, currentRequests);
-                        editor.apply();
-
-                    } else {
-                        // If count is less or user don't want notifications: save new number
-                        currentRequests = oldCount;
-                        SharedPreferences.Editor editor = preferences.edit();
-                        editor.putInt(KEY, currentRequests);
-                        editor.apply();
-
-                    }
-
-                    oldCount = currentRequests;
-                }
-
-                @Override
-                public void onCancelled(DatabaseError error) {
-                    // Don't do a damn shit
-                }
-            });
         }
     }
 
-    private void sendNotification(String title, String content) {
+    // Send notification when a user get asked to sign a jump
+    private void requestRecieved(DatabaseReference reference, final String userId) {
 
-        // Get intent
-        Intent mainIntent = new Intent(this, EvaluateRequestActivity.class);
+        // Get resources
+        final String title = this.getResources().getString(R.string.newRequest);
+        final String content = this.getResources().getString(R.string.approveThis);
+
+        // TODO: actually send user to the jump
+        final Intent intent = new Intent(this, EvaluateRequestActivity.class);
+
+        request = null;
+
+        reference.orderByChild("signer").equalTo(userId).addChildEventListener(new ChildEventListener() {
+
+            // If an request with signer 'userId' is added
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                request = dataSnapshot.getValue(Request.class);
+
+                if(request != null && notificationOn){
+                    String contentText = request.getUserName() + " " + content + " " + request.getJumpNr();
+                    sendNotification(title, contentText, intent);
+                }
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
+    }
+
+    // Send notification when a users jump is approved
+    private void jumpApproved(final DatabaseReference reference, String userId){
+
+        // Get resources
+        final String title = this.getResources().getString(R.string.jumpApproved);
+        final String title2 = this.getResources().getString(R.string.hasApproved);
+        final String content = this.getResources().getString(R.string.contentApproved);
+
+        final Intent intent = new Intent(this, MainActivity.class);
+
+        request = null;
+        reference.orderByChild("userID").equalTo(userId).addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+            }
+
+            // If an request with userId 'userId' is deleted, it means it has been approved
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+                request = dataSnapshot.getValue(Request.class);
+                if(request != null && notificationOn){
+                    String fullTitle = title + " " + request.getJumpNr() + " " + title2;
+
+                    sendNotification(fullTitle, content, intent);
+                }
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
+
+    }
+
+    private void sendNotification(String title, String content, Intent intent) {
+
         // Activate the intent(?)
-        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, mainIntent, 0);
-
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
 
         // Set icon
         this.builder.setSmallIcon(R.drawable.ic_notifications_white_48dp);
