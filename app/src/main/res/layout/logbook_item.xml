@@ -20,11 +20,12 @@
 
     <TextView
         android:id="@+id/item_DZ"
-        android:layout_width="113dp"
+        android:layout_width="wrap_content"
         android:layout_height="40dp"
         android:layout_alignParentTop="true"
         android:layout_marginStart="19dp"
         android:layout_toEndOf="@+id/item_jumpNr"
+        android:maxLength="10"
         android:text="OFSK"
         android:textAlignment="center"
         android:textColor="@android:color/black"
@@ -32,7 +33,7 @@
 
     <TextView
         android:id="@+id/item_date"
-        android:layout_width="66dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentTop="true"
