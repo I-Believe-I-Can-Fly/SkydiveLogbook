@@ -21,7 +21,7 @@ public class PageFragment extends Fragment {
     private static final String ARG_PARAM2 = "jump";
 
     private String userID;
-    private Integer JUMP;
+    private String JUMPKEY;
 
     private FirebaseDatabase mDatabase;
     private DatabaseReference myRef;
@@ -54,11 +54,11 @@ public class PageFragment extends Fragment {
      * @return A new instance of fragment PageFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static PageFragment newInstance(String param1, Integer param2) {
+    public static PageFragment newInstance(String param1, String param2) {
         PageFragment fragment = new PageFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
-        args.putInt(ARG_PARAM2, param2);
+        args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
         return fragment;
     }
@@ -68,7 +68,7 @@ public class PageFragment extends Fragment {
                              Bundle savedInstanceState) {
         if (getArguments() != null) {
             userID = getArguments().getString(ARG_PARAM1);
-            JUMP = getArguments().getInt(ARG_PARAM2);
+            JUMPKEY = getArguments().getString(ARG_PARAM2);
         }
         this.mDatabase = FirebaseDatabase.getInstance();
         this.myRef = mDatabase.getReference("Logs").child(userID);
@@ -114,7 +114,7 @@ public class PageFragment extends Fragment {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot child : dataSnapshot.getChildren()) {
                     LogbookPage logbookPage = child.getValue(LogbookPage.class);
-                    if (logbookPage.getJumpNr().equals(JUMP + 1)) {
+                    if (child.getKey().equals(JUMPKEY)) {
                         page = logbookPage;
                         fillPageData();
                     }

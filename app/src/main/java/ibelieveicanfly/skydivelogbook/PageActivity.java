@@ -6,6 +6,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -13,6 +14,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
 
 public class PageActivity extends AppCompatActivity {
 
@@ -27,6 +30,8 @@ public class PageActivity extends AppCompatActivity {
     private FirebaseDatabase mDatabase;
     private DatabaseReference myRef;
 
+    private ArrayList<String> KeyList;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +43,8 @@ public class PageActivity extends AppCompatActivity {
         if (extras != null) {
             JUMP = extras.getInt("jump");
         }
+
+        KeyList = new ArrayList<String>();
 
         auth = FirebaseAuth.getInstance();
         //retrieve userid
@@ -70,6 +77,8 @@ public class PageActivity extends AppCompatActivity {
                 for (DataSnapshot child : dataSnapshot.getChildren()) {
                     ITEMS++;
 
+                    KeyList.add(child.getKey());
+
                     //update number of pages in pagerAdapter
                     mSectionsPagerAdapter.notifyDataSetChanged();
                 }
@@ -94,7 +103,8 @@ public class PageActivity extends AppCompatActivity {
         public Fragment getItem(int position) {
             // TODO: Send actual jumpNr instead of position, will not work unless the user logs every jump from jump 1.
             // TODO : pls fix this, Brukte 45min på å finne en feil som ikke var min :)
-            PageFragment pageFragment = new PageFragment().newInstance(userID, position);
+            PageFragment pageFragment = new PageFragment().newInstance(userID, KeyList.get(position));
+            Log.i("CUNT", "getItem: "+ JUMP);
             return pageFragment;
         }
 
