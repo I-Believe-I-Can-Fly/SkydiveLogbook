@@ -164,44 +164,53 @@ public class CreatePageActivity extends AppCompatActivity {
 
     private LogbookPage getDataFromLogbook() {
         // TODO: Make it more useful
-        //'atomic'-wannabe variable to make sure fields are filled
-        boolean filled = true;
+        String emptyjumpNr = this.getResources().getString(R.string.emptyJumpNr);
+        String emptyDate = this.getResources().getString(R.string.emptyDate);
+        String emptyDz = this.getResources().getString(R.string.emptyDz);
+        String emptyPlane = this.getResources().getString(R.string.emptyPlane);
+        String emptyEquipment = this.getResources().getString(R.string.emptyEquipment);
+        String emptyExit= this.getResources().getString(R.string.emptyExit);
+        String emptyFreefall = this.getResources().getString(R.string.emptyFreefall);
+        String emptyCanopy = this.getResources().getString(R.string.emptyCanopy);
+        String emptySignatureID = this.getResources().getString(R.string.emptySignatureUserID);
+        String emptySignature = this.getResources().getString(R.string.emptySignature);
+        String invalidDate = this.getResources().getString(R.string.notValidDate);
+
 
         if (TextUtils.isEmpty(mJumpNr.getText())) {
-            filled = false;
-        }
-        if (TextUtils.isEmpty(mDate.getText())) {
-            filled = false;
-        }
-        if (TextUtils.isEmpty(mDz.getText())) {
-            filled = false;
-        }
-        if (TextUtils.isEmpty(mPlane.getText())) {
-            filled = false;
-        }
-        if (TextUtils.isEmpty(mEquipment.getText())) {
-            filled = false;
-        }
-        if (TextUtils.isEmpty(mExit.getText())) {
-            filled = false;
-        }
-        if (TextUtils.isEmpty(mFreefall.getText())) {
-            filled = false;
-        }
-        if (TextUtils.isEmpty(mCanopy.getText())) {
-            filled = false;
-        }
-        if (TextUtils.isEmpty(mSignatureUserID)) {
-            filled = false;
-        }
-        if (TextUtils.isEmpty(mSignature.getText())) {
-            filled = false;
-        }
-        if (!mDate.getText().toString().matches("^[0-9]{1,2}/[0-9]{1,2}/[1-2][0-9]{3}$")) {
-            filled = false;
-        }
+            Toast.makeText(CreatePageActivity.this, emptyjumpNr, Toast.LENGTH_SHORT).show();
 
-        if (filled) {
+        } else if (TextUtils.isEmpty(mDate.getText())) {
+            Toast.makeText(CreatePageActivity.this, emptyDate, Toast.LENGTH_SHORT).show();
+
+        } else if (TextUtils.isEmpty(mDz.getText())) {
+            Toast.makeText(CreatePageActivity.this, emptyDz, Toast.LENGTH_SHORT).show();
+
+        } else if (TextUtils.isEmpty(mPlane.getText())) {
+            Toast.makeText(CreatePageActivity.this, emptyPlane, Toast.LENGTH_SHORT).show();
+
+        } else if (TextUtils.isEmpty(mEquipment.getText())) {
+            Toast.makeText(CreatePageActivity.this, emptyEquipment, Toast.LENGTH_SHORT).show();
+
+        } else if (TextUtils.isEmpty(mExit.getText())) {
+            Toast.makeText(CreatePageActivity.this, emptyExit, Toast.LENGTH_SHORT).show();
+
+        } else if (TextUtils.isEmpty(mFreefall.getText())) {
+            Toast.makeText(CreatePageActivity.this, emptyFreefall, Toast.LENGTH_SHORT).show();
+
+        } else if (TextUtils.isEmpty(mCanopy.getText())) {
+            Toast.makeText(CreatePageActivity.this, emptyCanopy, Toast.LENGTH_SHORT).show();
+
+        } else if (TextUtils.isEmpty(mSignatureUserID)) {
+            Toast.makeText(CreatePageActivity.this, emptySignatureID, Toast.LENGTH_SHORT).show();
+
+        } else if (TextUtils.isEmpty(mSignature.getText())) {
+            Toast.makeText(CreatePageActivity.this, emptySignature, Toast.LENGTH_SHORT).show();
+
+        } else if (!mDate.getText().toString().matches("^[0-9]{1,2}/[0-9]{1,2}/[1-2][0-9]{3}$")) {
+            Toast.makeText(CreatePageActivity.this, invalidDate, Toast.LENGTH_SHORT).show();
+
+        } else {
             return new LogbookPage(
                     Integer.parseInt(mJumpNr.getText().toString()),
                     mDate.getText().toString(),
@@ -215,8 +224,6 @@ public class CreatePageActivity extends AppCompatActivity {
                     mSignature.getText().toString(),
                     mApproved
             );
-        } else {
-            Toast.makeText(getApplicationContext(), "Required fields not filled", Toast.LENGTH_SHORT).show();
         }
         return null;
     }

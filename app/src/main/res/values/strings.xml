@@ -92,4 +92,14 @@
     <string name="norwegian">Norwegian</string>
     <string name="logNewJump">Log new jump</string>
     <string name="signatureRequests">Signature requests</string>
+    <string name="emptyJumpNr">Error: JumpNr can not be empty!</string>
+    <string name="emptyDate">Error: Date can not be empty!</string>
+    <string name="emptyDz">Error: Dropzone can not be empty!</string>
+    <string name="emptyPlane">Error: Plane can not be empty!</string>
+    <string name="emptyEquipment">Error: Equipment can not be empty!</string>
+    <string name="emptyExit">Error: Exit Altitude can not be empty!</string>
+    <string name="emptyFreefall">Error: Freefall time can not be empty!</string>
+    <string name="emptyCanopy">Error: Canopy Altitude can not be empty!</string>
+    <string name="emptySignatureUserID">Error: Signature user id can not be empty!</string>
+    <string name="emptySignature">Error: Signature can not be empty!</string>
 </resources>

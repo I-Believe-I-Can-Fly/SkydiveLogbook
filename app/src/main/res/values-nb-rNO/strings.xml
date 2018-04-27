@@ -69,4 +69,14 @@
     <string name="norwegian">Norsk</string>
     <string name="logNewJump">Logg nytt hopp</string>
     <string name="signatureRequests">Signaturforespørsler</string>
+    <string name="emptyJumpNr">Feil: Hopp nummer kan ikke være tomt!</string>
+    <string name="emptyDate">Feil: Dato kan ikke være tomt!</string>
+    <string name="emptyDz">Feil: Droppsone kan ikke være tomt!</string>
+    <string name="emptyPlane">Feil: Fly kan ikke være tomt!</string>
+    <string name="emptyEquipment">Feil: Utstyr kan ikke være tomt!</string>
+    <string name="emptyExit">Feil: Utgangshøyde kan ikke være tomt!</string>
+    <string name="emptyFreefall">Feil: Fritt-fall kan ikke være tomt!</string>
+    <string name="emptyCanopy">Feil: Canopy Altitude kan ikke være tomt!</string>
+    <string name="emptySignatureUserID">Feil: Signatur bruker id kan ikke være tomt!</string>
+    <string name="emptySignature">Feil: Signatur kan ikke være tomt!</string>
 </resources>
