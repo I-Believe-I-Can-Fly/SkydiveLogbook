@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -28,8 +29,11 @@ public class SignatureRequest extends AppCompatActivity {
 
     private RecyclerView recyclerView;
 
+    private FirebaseAuth auth;
     private FirebaseDatabase mDatabase;
     private DatabaseReference myRef;
+
+    private String uid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +46,8 @@ public class SignatureRequest extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         users = new ArrayList<>();
+        auth = FirebaseAuth.getInstance();
+        uid = auth.getCurrentUser().getUid();
 
         // Read from the database
         myRef.orderByValue().addValueEventListener(new ValueEventListener() {
@@ -49,8 +55,12 @@ public class SignatureRequest extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 users.clear();
                 for(DataSnapshot child: dataSnapshot.getChildren()) {
-                    User user = child.getValue(User.class);
-                    users.add(user);
+                    if(!child.getKey().equals(uid)){
+                        User user = child.getValue(User.class);
+                        if(!user.getCertificate().equals("A") && !user.getCertificate().equals("Elev")){
+                            users.add(user);
+                        }
+                    }
                 }
                 refreshListAdapter();
             }
@@ -125,7 +135,7 @@ public class SignatureRequest extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), CreatePageActivity.class);
-                // TODO: endre 'extraen' under til userID
+
                 intent.putExtra("SignUser_id", SignatureUserID); // Dette burde vært userID'en til brukeren
                 intent.putExtra("SignUser_text", nameTxt.getText().toString()+" "+licenseTxt.getText().toString());
                 setResult(Activity.RESULT_OK, intent);
