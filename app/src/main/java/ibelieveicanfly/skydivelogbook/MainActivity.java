@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -14,7 +15,6 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
 
 import com.github.clans.fab.FloatingActionButton;
 import com.github.clans.fab.FloatingActionMenu;
@@ -31,6 +31,8 @@ import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
+    private final Handler fetch = new Handler();
+    private final int time = 60 * 1000; // 5 min
     private RecyclerView recyclerView;
     private CustomAdapter adapter;
     private FirebaseAuth auth;
@@ -38,9 +40,9 @@ public class MainActivity extends AppCompatActivity {
     private DatabaseReference myRef;
     private FloatingActionMenu floatingActionMenu;
     private FloatingActionButton floatingActionButton1, floatingActionButton2;
-
-
+    private Intent serviceIntent;
     private ArrayList<LogbookPage> jumpList = new ArrayList<>();
+    private Runnable feed;
 
     private String userID;
 
@@ -49,11 +51,21 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // Language
         setLanguage();
 
+        // User
         auth = FirebaseAuth.getInstance();
-        // auth.signOut();
         userStatus(auth.getCurrentUser());
+
+        // Notification
+        serviceIntent = new Intent(MainActivity.this, Notification.class);
+        feed = new Runnable() {
+            @Override
+            public void run() {
+                fetch.postDelayed(this, time);
+            }
+        };
 
         this.recyclerView = (RecyclerView) this.findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -76,10 +88,18 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+
+        getNotification();
+
         refreshListAdapter();
     }
 
-    private void setLanguage(){
+    private void getNotification() {
+        startService(serviceIntent);
+        feed.run();
+    }
+
+    private void setLanguage() {
 
         final SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
         final String countryCode = preferences.getString("countryCode", "en");
@@ -192,7 +212,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    public void onBackPressed(){
+    public void onBackPressed() {
         Intent intent = new Intent(Intent.ACTION_MAIN);
         intent.addCategory(Intent.CATEGORY_HOME);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);

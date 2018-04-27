@@ -13,7 +13,6 @@ import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.Spinner;
 import android.widget.Switch;
-import android.widget.Toast;
 
 import java.util.Locale;
 
@@ -58,8 +57,17 @@ public class SettingsActivity extends AppCompatActivity {
         getLanguage();
     }
 
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(SettingsActivity.this, MainActivity.class);
+        startActivity(intent);
+    }
+
     private void setNotificationChoice() {
+        final SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
         notificationOn = preferences.getBoolean(KEY_N, true);
+
+        // notificationOn = preferences.getBoolean(KEY_N, true);
 
         if (notificationOn) {
             switch_Notification.setChecked(true);
@@ -69,6 +77,8 @@ public class SettingsActivity extends AppCompatActivity {
     }
 
     private void getNotificationChoice() {
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        final SharedPreferences.Editor editor = preferences.edit();
 
         switch_Notification.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -80,9 +90,14 @@ public class SettingsActivity extends AppCompatActivity {
                     notificationOn = false;
                 }
 
+                editor.putBoolean(KEY_N, notificationOn);
+                editor.apply();
+
+                /*
                 editor = getPreferences(0).edit();
                 editor.putBoolean(KEY_N, notificationOn);
                 editor.apply();
+                */
             }
         });
     }

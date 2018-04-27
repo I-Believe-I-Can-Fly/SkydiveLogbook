@@ -79,4 +79,6 @@
     <string name="emptyCanopy">Feil: Canopy Altitude kan ikke være tomt!</string>
     <string name="emptySignatureUserID">Feil: Signatur bruker id kan ikke være tomt!</string>
     <string name="emptySignature">Feil: Signatur kan ikke være tomt!</string>
+    <string name="newRequest">Ny Forespørsel!</string>
+    <string name="approveThis">vil at du skal godkjenne hopp nr:</string>
 </resources>

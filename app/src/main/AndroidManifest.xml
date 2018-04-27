@@ -40,6 +40,7 @@
             android:name=".EvaluateJumpActivity"
             android:parentActivityName=".EvaluateRequestActivity" />
 
+        <service android:name=".Notification" />
     </application>
 
 </manifest>

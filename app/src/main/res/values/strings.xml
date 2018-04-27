@@ -102,4 +102,6 @@
     <string name="emptyCanopy">Error: Canopy Altitude can not be empty!</string>
     <string name="emptySignatureUserID">Error: Signature user id can not be empty!</string>
     <string name="emptySignature">Error: Signature can not be empty!</string>
+    <string name="newRequest">New Request!</string>
+    <string name="approveThis">wants yout to approve jump nr:</string>
 </resources>
