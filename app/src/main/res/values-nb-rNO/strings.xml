@@ -4,9 +4,9 @@
     <string name="date">Dato</string>
     <string name="plane">Fly</string>
     <string name="equipment">Utstyr</string>
-    <string name="dropzone">Droppsone</string>
+    <string name="dropzone">Dropzone</string>
     <string name="exitAlt">Utgangshøyde</string>
-    <string name="fallTime">Frittfall tid</string>
+    <string name="fallTime">Fritt fall-tid</string>
     <string name="comments">Kommentarer</string>
     <string name="password">Passord</string>
     <string name="register">Registrer</string>
@@ -33,11 +33,11 @@
     <string name="invalidEmail">Feil: Ikke gyldig E-mail</string>
     <string name="userNotExists">Feil: Brukeren eksisterer ikke</string>
     <string name="emailInUse">Feil! E-mailen er allerede i bruk!</string>
-    <string name="invalidCred">Feil: Ikke korrekt passord eller E-mail!</string>
-    <string name="tooManyReq">Feil! Blokket alle forespørsler fra denne enheten pga uvanlig aktivitet, prøv igjen senere!</string>
+    <string name="invalidCred">Feil: Feil passord eller E-mail!</string>
+    <string name="tooManyReq">Feil! Blokert alle forespørsler fra denne enheten pga uvanlig aktivitet, prøv igjen senere!</string>
     <string name="chooseLanguage">Velg Språk</string>
     <string name="changeLanguage">Bytt Språk</string>
-    <string name="allowNotifications">Tilatt Notifikasjoner</string>
+    <string name="allowNotifications">Tillatt Notifikasjoner</string>
     <string name="settings">Innstillinger</string>
     <string name="notApproved">Venter</string>
     <string name="approved">Godkjent</string>
