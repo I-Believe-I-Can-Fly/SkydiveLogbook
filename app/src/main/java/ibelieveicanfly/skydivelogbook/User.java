@@ -4,7 +4,7 @@ public class User {
     public String firstName;
     public String lastName;
     public String licence;
-    public String certificate;
+    public String certificate = "";
     public String email;
     public String dateOfBirth;
     public String userID;

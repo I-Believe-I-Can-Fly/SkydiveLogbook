@@ -309,7 +309,7 @@ public class CreatePageActivity extends AppCompatActivity {
 
     private void savePageToFirebase(LogbookPage logbookPage) {
 
-        //getJumps();
+        getJumps();
         String key = myRef.push().getKey();
         myRef.child(userID).child(key).setValue(logbookPage);
     }
@@ -320,7 +320,7 @@ public class CreatePageActivity extends AppCompatActivity {
         myRef2.child(key).setValue(request);
     }
 
-    /*
+
     private void getJumps() {
         DatabaseReference usersRef = FirebaseDatabase.getInstance().getReference("Users");
         DatabaseReference ref = usersRef.child(auth.getCurrentUser().getUid());
@@ -346,8 +346,8 @@ public class CreatePageActivity extends AppCompatActivity {
         newJumps = Integer.toString(tempJumps);
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference reference = database.getReference("Users/totalJumps");
+        DatabaseReference reference = database.getReference("Users/" + userID);
 
-        reference.child(userID).setValue(newJumps);
-    }*/
+        reference.child("totalJumps").setValue(newJumps);
+    }
 }
