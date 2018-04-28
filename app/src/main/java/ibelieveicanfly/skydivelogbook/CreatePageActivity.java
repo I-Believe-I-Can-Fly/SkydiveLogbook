@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -308,6 +309,7 @@ public class CreatePageActivity extends AppCompatActivity {
 
     private void savePageToFirebase(LogbookPage logbookPage) {
 
+        //getJumps();
         String key = myRef.push().getKey();
         myRef.child(userID).child(key).setValue(logbookPage);
     }
@@ -317,4 +319,35 @@ public class CreatePageActivity extends AppCompatActivity {
         Request request = new Request(User, Signer, JumpNr, mUsernameTxt, key);
         myRef2.child(key).setValue(request);
     }
+
+    /*
+    private void getJumps() {
+        DatabaseReference usersRef = FirebaseDatabase.getInstance().getReference("Users");
+        DatabaseReference ref = usersRef.child(auth.getCurrentUser().getUid());
+
+        ref.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                updateJumps(dataSnapshot.getValue(User.class));
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                // Failed to get current user
+            }
+        });
+    }
+
+    private void updateJumps(User user) {
+        String newJumps = user.getTotalJumps();
+        Log.e("newJumps = ", newJumps);
+        int tempJumps = Integer.parseInt(newJumps);
+        tempJumps++;
+        newJumps = Integer.toString(tempJumps);
+
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference reference = database.getReference("Users/totalJumps");
+
+        reference.child(userID).setValue(newJumps);
+    }*/
 }

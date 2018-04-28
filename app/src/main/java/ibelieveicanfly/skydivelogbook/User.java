@@ -107,4 +107,12 @@ public class User {
     public void setUserID(String userID) {
         this.userID = userID;
     }
+
+    public String getTotalJumps() {
+        return totalJumps;
+    }
+
+    public void setTotalJumps(String totalJumps) {
+        this.totalJumps = totalJumps;
+    }
 }
